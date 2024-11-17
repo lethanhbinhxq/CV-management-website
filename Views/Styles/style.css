@@ -1,0 +1,109 @@
+body {
+    background-color: white;
+    font-size: 100%;
+    color: #323232;
+    font-family: "Poppins", sans-serif;
+}
+
+.bg-dark {
+    background-color: #0d1433 !important;
+}
+
+.bg-primary {
+    background-color: #0042e8 !important;
+}
+.bg-secondary {
+    background-color: #829cd0 !important;
+}
+.bg-form {
+    background-color: #E6E6E6 !important;
+}
+
+.text-light-blue {
+    color: #829cd0;
+}
+
+.text-light-blue-hover:hover {
+    color: #4f81ff;
+}
+
+.footer-text {
+    color: white !important;
+}
+
+.footer-text:hover, .footer-text:focus, .footer-text:active {
+    color: #4f81ff !important;
+}
+.custom-search {
+    background-color: #ebebeb !important;
+    border-color: #829cd0 !important;
+    border-width: 0.15em;
+}
+
+.btn-outline-secondary {
+    color: #829cd0;
+    border-color: #829cd0;
+    border-width: 0.15em;
+}
+
+.btn-outline-secondary:hover {
+    border-color: #4f81ff;
+    box-shadow: 0 0 0 0.2rem #1c39ad;
+    background-color: #4f81ff;
+    color: white;
+}
+
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active {
+    border-color: #0042e8 !important;
+    box-shadow: 0 0 0 0.2rem #00dbf5;
+    background-color: #0042e8 !important;
+    color: white;
+}
+
+.form-control:focus,
+.form-control:active {
+    border: none;
+    box-shadow: 0 0 0 0.2rem #0042e8;
+    background-color: white;
+}
+
+.form-control:not(:placeholder-shown) {
+    background-color: #d5ffff;
+    border-color: #0042e8;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    border-radius: 12px;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:active {
+    color: #0B2F9F;
+    background-color: #d9d9d9e9;
+    border-radius: 12px;
+}
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu-blue {
+    text-align: left;
+    background-color: #98ABEE;
+}
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: #00dbf5;
+    color: #6d6d6d;
+}
+
+.short-divider {
+    width: 50%;
+    border: 5px dashed #4f81ff;
+    margin: 0 auto;
+}
