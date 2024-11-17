@@ -1,0 +1,11 @@
+dashboard/
+img/
+[lL][aA][bB]*/
+webalizer/
+xampp/
+.hintrc
+application.html
+bitnami.css
+favicon.ico
+phpinfo.php
+*temp*
