@@ -20,16 +20,27 @@
 
     <!-- Log in / Log out / Profile -->
     <div>
-        <button class="btn btn-outline-secondary me-2" type="button" id="loginButton">
+        <!-- <button class="btn btn-outline-secondary me-2" type="button" id="loginButton">
             Log In
         </button>
 
         <button class="btn btn-outline-secondary" type="button" id="signupButton">
             Sign Up
+        </button> -->
+
+        <!-- Notification button -->
+        <button class="btn btn-outline-secondary rounded-circle me-5" type="button" id="notificationButton"
+            title="Notification" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-bell-fill" style="font-size: larger;"></i>
         </button>
 
+        <div id="notificationDropdown" class="dropdown-menu dropdown-menu-blue text-center">
+            <a href="#" class="dropdown-item">My Profile</a>
+            <a href="#" class="dropdown-item">Log Out</a>
+        </div>
+
         <!-- Profile button -->
-        <button class="btn btn-outline-secondary rounded-circle" type="button" id="profileButton" title="Profile"
+        <button class="btn btn-outline-secondary rounded-circle mx-5" type="button" id="profileButton" title="Profile"
             data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-fill" style="font-size: larger;"></i>
         </button>
