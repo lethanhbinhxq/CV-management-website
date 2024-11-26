@@ -1,0 +1,69 @@
+<?php
+// Kết nối với database
+include_once '../Models/db_connect.php'; // Kết nối DB
+
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+// Xử lý dữ liệu form
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $fullName = trim($_POST['full_name']);
+    $email = trim($_POST['email']);
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
+
+    // Kiểm tra validation phía server
+    $errors = [];
+
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    // Full Name validation
+    if (!preg_match('/^[A-Z][a-z]*(?: [A-Z][a-z]*)*$/', $fullName)) {
+        $errors[] = "Full Name must start with a capital letter and contain no numbers or special characters.";
+    }
+
+    // Email validation
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        error_log("Email received: " . $email);
+        $errors[] = "Invalid email format.";
+    }
+
+    // Username validation
+    if (!preg_match('/^[A-Za-z][A-Za-z0-9_]*$/', $username)) {
+        $errors[] = "Username must start with a letter and can contain only letters, numbers, or underscores.";
+    }
+
+    // Password validation
+    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
+        $errors[] = "Password must be at least 8 characters long, include lowercase, uppercase, a number, and a special character.";
+    }
+
+    // Nếu có lỗi, trả về trang đăng ký với thông báo lỗi
+    if (!empty($errors)) {
+        session_start();
+        $_SESSION['errors'] = $errors;
+        header("Location: /CV-management-website/?page=signup");
+        exit();
+    }
+
+    // Mã hóa password trước khi lưu
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    // Chuẩn bị và thực hiện truy vấn SQL
+    $stmt = $conn->prepare("INSERT INTO users (full_name, email, username, password) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $fullName, $email, $username, $hashedPassword);
+
+    if ($stmt->execute()) {
+        // Đăng ký thành công, chuyển về trang home
+        header("Location: /CV-management-website/?page=home");
+        exit();
+    } else {
+        session_start();
+        $_SESSION['errors'] = ["Error inserting data: " . $stmt->error];
+        header("Location: /CV-management-website/?page=signup");
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>

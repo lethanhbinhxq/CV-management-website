@@ -5,8 +5,6 @@ include_once '../Models/db_connect.php'; // Kết nối DB
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
 }
-echo "Database connected successfully.";
-
 
 // Hàm kiểm tra validation
 function validate_input($username, $password) {
@@ -34,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validationResult = validate_input($username, $password);
     if ($validationResult !== true) {
         $_SESSION['error'] = $validationResult;
-        header("Location: ../Views/Pages/login.php");
+        header("Location: /CV-management-website/?page=login");
         exit();
     }
     unset($_SESSION['error']); // Xóa thông báo lỗi trước đó
@@ -52,24 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         // Kiểm tra password (sử dụng password_verify)
-        // if (password_verify($password, $user['password'])) {
-        //     // Đăng nhập thành công
-        //     $_SESSION['username'] = $username; // Lưu session
-        //     header("Location: /CV-management-website/?page=home");
-        //     exit();
-        // }
-        if ($password === $user['password']) {
+        if (password_verify($password, $user['password'])) {
+            // Đăng nhập thành công
             $_SESSION['username'] = $username; // Lưu session
             header("Location: /CV-management-website/?page=home");
             exit();
         }
-        
     }
 
     // Nếu thất bại
     $_SESSION['error'] = "Username or password is incorrect";
     header("Location: /CV-management-website/?page=login");
-
     exit();
 }
 ?>
