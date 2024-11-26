@@ -6,8 +6,7 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <label for="degree" class="form-label">Degree</label>
-                <input type="text" class="form-control" name="degree[]"
-                    placeholder="E.g. Associate, Bachelor, Master, etc." required>
+                <input type="text" class="form-control" name="degree[]" placeholder="E.g. Bachelor" required>
             </div>
             <div class="col-md-6">
                 <label for="major" class="form-label">Major</label>
@@ -89,8 +88,52 @@
 </div>
 
 <!-- Add Education Button -->
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mb-2">
     <button type="button" class="btn rounded-circle btn-add" id="addEducationBtn">
+        <i class="bi bi-plus-circle-fill text-primary" style="font-size: larger;"></i>
+    </button>
+</div>
+
+<h2>Certificate</h2>
+
+<div id="certificateContainer">
+    <div class="certificate-entry mb-4">
+        <div class="mb-3">
+            <label for="certificateTitle" class="form-label">Skill</label>
+            <input type="text" class="form-control" name="certificateTitle[]" placeholder="E.g. IELTS certificate"
+                required>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-6">
+                <label for="field" class="form-label">Field</label>
+                <input type="text" class="form-control" name="field[]" placeholder="E.g. English" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="issueYear" class="form-label">Issue Year</label>
+                <select class="form-select" name="issueYear[]" required>
+                    <option value="" disabled selected>Select year</option>
+                    <!-- Years -->
+                    <?php for ($year = 1970; $year <= 2024; $year++): ?>
+                        <option value="<?= $year ?>"><?= $year ?></option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="issuingOrganization" class="form-label">Issuing organization</label>
+            <input type="text" class="form-control" name="issuingOrganization[]" placeholder="E.g. British Council"
+                required>
+        </div>
+
+        <button type="button" class="btn btn-danger remove-certificate-btn d-none">Remove</button>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center mb-2">
+    <button type="button" class="btn rounded-circle btn-add" id="addCertificateBtn">
         <i class="bi bi-plus-circle-fill text-primary" style="font-size: larger;"></i>
     </button>
 </div>

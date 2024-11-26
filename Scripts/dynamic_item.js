@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeEducationManagement();
     
     initializeAddressManagement(); 
-    loadLocationData();  
+    loadLocationData(); 
+    
+    initializeCertificateManagement();
+    initializeSkillManagement();
+    initializeWorkManagement();
 });
 
 /**
@@ -246,6 +250,210 @@ function updateRemoveAddressButtons(container) {
     // Show remove buttons only if there are more than one entries
     removeButtons.forEach(button => button.classList.remove('d-none'));
     if (addressRow.length === 1) {
+        removeButtons.forEach(button => button.classList.add('d-none'));
+    }
+}
+
+/**
+ * Initialize dynamic certificate section management.
+ */
+function initializeCertificateManagement() {
+    const certificateContainer = document.getElementById('certificateContainer');
+    const addCertificateBtn = document.getElementById('addCertificateBtn');
+
+    if (certificateContainer && addCertificateBtn) {
+        // Add new certificate entry
+        addCertificateBtn.addEventListener('click', function () {
+            manageCertificateEntries(certificateContainer, 'add');
+        });
+
+        // Delegate event for remove buttons
+        certificateContainer.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-certificate-btn')) {
+                const certificateEntry = event.target.closest('.certificate-entry');
+                manageCertificateEntries(certificateContainer, 'remove', certificateEntry);
+            }
+        });
+    }
+}
+
+function manageCertificateEntries(container, action, entryToRemove = null) {
+    if (action === 'add') {
+        // Clone the first certificate entry
+        const firstEntry = container.querySelector('.certificate-entry');
+        if (firstEntry) {
+            const newEntry = firstEntry.cloneNode(true);
+
+            // Clear input values
+            newEntry.querySelectorAll('input, select').forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
+            });
+
+            // Remove 'd-none' class from remove button
+            const removeButton = newEntry.querySelector('.remove-certificate-btn');
+            if (removeButton) {
+                removeButton.classList.remove('d-none');
+            }
+
+            // Append the new entry
+            container.appendChild(newEntry);
+        }
+    } else if (action === 'remove' && entryToRemove) {
+        // Remove the specified certificate entry
+        container.removeChild(entryToRemove);
+    }
+
+    // Update remove button visibility
+    updateRemoveCertificateButtons(container);
+}
+
+function updateRemoveCertificateButtons(container) {
+    const certificateEntries = container.querySelectorAll('.certificate-entry');
+    const removeButtons = container.querySelectorAll('.remove-certificate-btn');
+
+    // Show remove buttons only if there are more than one entries
+    removeButtons.forEach(button => button.classList.remove('d-none'));
+    if (certificateEntries.length === 1) {
+        removeButtons.forEach(button => button.classList.add('d-none'));
+    }
+}
+
+/**
+ * Initialize dynamic work section management.
+ */
+function initializeSkillManagement() {
+    const skillContainer = document.getElementById('skillContainer');
+    const addSkillBtn = document.getElementById('addSkillBtn');
+
+    if (skillContainer && addSkillBtn) {
+        // Add new skill entry
+        addSkillBtn.addEventListener('click', function () {
+            manageSkillEntries(skillContainer, 'add');
+        });
+
+        // Delegate event for remove buttons
+        skillContainer.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-skill-btn')) {
+                const skillEntry = event.target.closest('.skill-entry');
+                manageSkillEntries(skillContainer, 'remove', skillEntry);
+            }
+        });
+    }
+}
+
+function manageSkillEntries(container, action, entryToRemove = null) {
+    if (action === 'add') {
+        // Clone the first skill entry
+        const firstEntry = container.querySelector('.skill-entry');
+        if (firstEntry) {
+            const newEntry = firstEntry.cloneNode(true);
+
+            // Clear input values
+            newEntry.querySelectorAll('input, select').forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
+            });
+
+            // Remove 'd-none' class from remove button
+            const removeButton = newEntry.querySelector('.remove-skill-btn');
+            if (removeButton) {
+                removeButton.classList.remove('d-none');
+            }
+
+            // Append the new entry
+            container.appendChild(newEntry);
+        }
+    } else if (action === 'remove' && entryToRemove) {
+        // Remove the specified skill entry
+        container.removeChild(entryToRemove);
+    }
+
+    // Update remove button visibility
+    updateRemoveSkillButtons(container);
+}
+
+function updateRemoveSkillButtons(container) {
+    const skillEntries = container.querySelectorAll('.skill-entry');
+    const removeButtons = container.querySelectorAll('.remove-skill-btn');
+
+    // Show remove buttons only if there are more than one entries
+    removeButtons.forEach(button => button.classList.remove('d-none'));
+    if (skillEntries.length === 1) {
+        removeButtons.forEach(button => button.classList.add('d-none'));
+    }
+}
+
+/**
+ * Initialize dynamic work section management.
+ */
+function initializeWorkManagement() {
+    const workContainer = document.getElementById('workContainer');
+    const addWorkBtn = document.getElementById('addWorkBtn');
+
+    if (workContainer && addWorkBtn) {
+        // Add new work entry
+        addWorkBtn.addEventListener('click', function () {
+            manageWorkEntries(workContainer, 'add');
+        });
+
+        // Delegate event for remove buttons
+        workContainer.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-work-btn')) {
+                const workEntry = event.target.closest('.work-entry');
+                manageWorkEntries(workContainer, 'remove', workEntry);
+            }
+        });
+    }
+}
+
+function manageWorkEntries(container, action, entryToRemove = null) {
+    if (action === 'add') {
+        // Clone the first work entry
+        const firstEntry = container.querySelector('.work-entry');
+        if (firstEntry) {
+            const newEntry = firstEntry.cloneNode(true);
+
+            // Clear input values
+            newEntry.querySelectorAll('input, select').forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
+            });
+
+            // Remove 'd-none' class from remove button
+            const removeButton = newEntry.querySelector('.remove-work-btn');
+            if (removeButton) {
+                removeButton.classList.remove('d-none');
+            }
+
+            // Append the new entry
+            container.appendChild(newEntry);
+        }
+    } else if (action === 'remove' && entryToRemove) {
+        // Remove the specified work entry
+        container.removeChild(entryToRemove);
+    }
+
+    // Update remove button visibility
+    updateRemoveWorkButtons(container);
+}
+
+function updateRemoveWorkButtons(container) {
+    const workEntries = container.querySelectorAll('.work-entry');
+    const removeButtons = container.querySelectorAll('.remove-work-btn');
+
+    // Show remove buttons only if there are more than one entries
+    removeButtons.forEach(button => button.classList.remove('d-none'));
+    if (workEntries.length === 1) {
         removeButtons.forEach(button => button.classList.add('d-none'));
     }
 }
