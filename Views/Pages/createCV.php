@@ -21,8 +21,8 @@
 
 <script src="/CV-management-website/Scripts/load_location.js"></script>
 
-<script>
+<!-- <script>
     document.addEventListener("DOMContentLoaded", () => {
         loadLocationData();
     });
-</script>
+</script> -->

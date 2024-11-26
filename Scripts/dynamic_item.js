@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     initializePhoneNumberManagement();
     initializeEducationManagement();
+    
+    initializeAddressManagement(); 
+    loadLocationData();  
 });
 
 /**
@@ -142,14 +145,14 @@ function manageEducationEntries(container, action, entryToRemove = null) {
     }
 
     // Update remove button visibility
-    updateRemoveButtons(container);
+    updateRemoveEducationButtons(container);
 }
 
 /**
  * Update visibility of remove buttons based on the number of entries.
  * @param {HTMLElement} container - The container for education entries.
  */
-function updateRemoveButtons(container) {
+function updateRemoveEducationButtons(container) {
     const educationEntries = container.querySelectorAll('.education-entry');
     const removeButtons = container.querySelectorAll('.remove-education-btn');
 
@@ -157,5 +160,80 @@ function updateRemoveButtons(container) {
     removeButtons.forEach(button => button.classList.remove('d-none'));
     if (educationEntries.length === 1) {
         removeButtons.forEach(button => button.classList.add('d-none'));
+    }
+}
+
+function initializeAddressManagement() {
+    const container = document.getElementById('addressContainer');
+    const addAddressBtn = document.getElementById('addAddressBtn');
+
+    // Add event listener to the "Add Address" button
+    if (container && addAddressBtn) {
+        addAddressBtn.addEventListener('click', function () {
+            manageAddress(container, 'add');
+        });
+
+        // Delegate event for "Remove" buttons
+        container.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-address-btn')) {
+                const addressRow = event.target.closest('.address-row');
+                manageAddress(container, 'remove', addressRow);
+            }
+        });
+    }
+}
+
+/**
+ * Manage address entries dynamically.
+ * @param {HTMLElement} container - The container for address entries.
+ * @param {string} action - The action to perform ('add' or 'remove').
+ * @param {HTMLElement} [rowToRemove] - The row to remove (only for 'remove' action).
+ */
+function manageAddress(container, action, rowToRemove = null) {
+    if (action === 'add') {
+        // Create a new address row
+        const newAddressRow = document.createElement('div');
+        newAddressRow.classList.add('address-row', 'mb-2');
+
+        // Add the address fields and the remove button
+        newAddressRow.innerHTML = `
+            <div class="mb-2">
+                <label for="province" class="text-main-pink">Province</label>
+                <select name="province[]" class="form-select" required>
+                    <option value="">Select a province</option>
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="district" class="text-main-pink">District</label>
+                <select name="district[]" class="form-select" disabled required>
+                    <option value="">Select a district</option>
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="commune" class="text-main-pink">Commune</label>
+                <select name="commune[]" class="form-select" disabled required>
+                    <option value="">Select a commune</option>
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="streetAddress" class="text-main-pink">Street address</label>
+                <input type="text" class="form-control" name="streetAddress[]" placeholder="Enter your street address" required>
+            </div>
+
+            <button type="button" class="btn btn-danger remove-address-btn">Remove</button>
+        `;
+
+        // Add the new row to the container
+        container.appendChild(newAddressRow);
+
+        // Reinitialize the province dropdown for the newly added address
+        const newProvinceDropdown = newAddressRow.querySelector('select[name="province[]"]');
+        loadLocationData(newProvinceDropdown);
+    } else if (action === 'remove' && rowToRemove) {
+        // Remove the specified row
+        container.removeChild(rowToRemove);
     }
 }
