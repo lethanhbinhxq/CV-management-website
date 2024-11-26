@@ -236,4 +236,16 @@ function manageAddress(container, action, rowToRemove = null) {
         // Remove the specified row
         container.removeChild(rowToRemove);
     }
+    updateRemoveAddressButtons(container);
+}
+
+function updateRemoveAddressButtons(container) {
+    const addressRow = container.querySelectorAll('.address-row');
+    const removeButtons = container.querySelectorAll('.remove-address-btn');
+
+    // Show remove buttons only if there are more than one entries
+    removeButtons.forEach(button => button.classList.remove('d-none'));
+    if (addressRow.length === 1) {
+        removeButtons.forEach(button => button.classList.add('d-none'));
+    }
 }
