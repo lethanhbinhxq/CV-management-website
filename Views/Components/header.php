@@ -52,9 +52,9 @@
         ?>
         
         <!-- Notification button -->
-        <button class="btn btn-outline-secondary rounded-circle me-5" type="button" id="notificationButton"
-            title="Notification" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-bell-fill" style="font-size: larger;"></i>
+        <button class="btn btn-outline-secondary rounded-circle me-5" type="button" id="profile"
+            title="Profile" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-fill" style="font-size: larger;"></i>
         </button>
 
         <div id="notificationDropdown" class="dropdown-menu dropdown-menu-blue text-center">

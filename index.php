@@ -20,17 +20,15 @@
 </head>
 
 <body>
-    <?php include 'Views/Components/header.html'; ?>
+    <?php include 'Views/Components/header.php'; ?>
     <!-- Redirect processing -->
 
-    <?php include 'Controllers/redirect.php'; ?>
-
-    <?php include 'Views/Components/navbar.html'; ?>
+    <?php include 'Views/Components/navbar.php'; ?>
     
-    <?php include 'Views/Pages/home.php'; ?>
     
-
-    <?php include 'Views/Components/footer.html'; ?>
+    <?php include 'Views/Pages/createCV.php'; ?>
+    
+    <?php include 'Views/Components/footer.php'; ?>
 </body>
 
 </html>
