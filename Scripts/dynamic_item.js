@@ -196,7 +196,7 @@ function manageAddress(container, action, rowToRemove = null) {
         newAddressRow.classList.add('address-row', 'mb-2');
 
         // Add the address fields and the remove button
-        newAddressRow.innerHTML = `
+        newAddressRow.innerHTML = ` 
             <div class="mb-2">
                 <label for="province" class="text-main-pink">Province</label>
                 <select name="province[]" class="form-select" required>
@@ -229,9 +229,9 @@ function manageAddress(container, action, rowToRemove = null) {
         // Add the new row to the container
         container.appendChild(newAddressRow);
 
-        // Reinitialize the province dropdown for the newly added address
+        // Reinitialize the province dropdown for the newly added address row
         const newProvinceDropdown = newAddressRow.querySelector('select[name="province[]"]');
-        loadLocationData(newProvinceDropdown);
+        loadLocationData(newProvinceDropdown); // Populate only the new province dropdown
     } else if (action === 'remove' && rowToRemove) {
         // Remove the specified row
         container.removeChild(rowToRemove);

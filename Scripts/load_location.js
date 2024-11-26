@@ -1,46 +1,81 @@
-function loadLocationData() {
+function loadLocationData(targetDropdown = null) {
     fetch('/CV-management-website/Scripts/location.json')  // Adjust the path if necessary
         .then(response => response.json())
         .then(locationData => {
-            // Get the address containers
-            const addressContainers = document.querySelectorAll('.address-row');
-            
-            addressContainers.forEach(container => {
-                const provinceSelect = container.querySelector('select[name="province[]"]');
-                const districtSelect = container.querySelector('select[name="district[]"]');
-                const communeSelect = container.querySelector('select[name="commune[]"]');
-                
-                if (provinceSelect && districtSelect && communeSelect) {
-                    // Populate the Province dropdown
-                    populateDropdown(provinceSelect, locationData.province, 'idProvince', 'name');
-                    
-                    // Event listener for Province selection
-                    provinceSelect.addEventListener("change", function () {
-                        const selectedProvince = provinceSelect.value;
-                        const filteredDistricts = locationData.district.filter(district => district.idProvince === selectedProvince);
+            if (targetDropdown) {
+                // If a specific target dropdown is provided, populate only that row's dropdowns
+                const provinceSelect = targetDropdown;
+                const districtSelect = provinceSelect.closest('.address-row').querySelector('select[name="district[]"]');
+                const communeSelect = provinceSelect.closest('.address-row').querySelector('select[name="commune[]"]');
 
-                        // Populate the District dropdown for the current address row
-                        populateDropdown(districtSelect, filteredDistricts, 'idDistrict', 'name');
+                // Populate the Province dropdown for the specific row
+                populateDropdown(provinceSelect, locationData.province, 'idProvince', 'name');
 
-                        // Enable the District dropdown and reset Commune dropdown
-                        districtSelect.disabled = filteredDistricts.length === 0;
-                        communeSelect.disabled = true;
-                        communeSelect.innerHTML = '<option value="">Select a commune</option>';
-                    });
+                // Event listener for Province selection
+                provinceSelect.addEventListener("change", function () {
+                    const selectedProvince = provinceSelect.value;
+                    const filteredDistricts = locationData.district.filter(district => district.idProvince === selectedProvince);
 
-                    // Event listener for District selection
-                    districtSelect.addEventListener("change", function () {
-                        const selectedDistrict = districtSelect.value;
-                        const filteredCommunes = locationData.commune.filter(commune => commune.idDistrict === selectedDistrict);
+                    // Populate the District dropdown for the current address row
+                    populateDropdown(districtSelect, filteredDistricts, 'idDistrict', 'name');
 
-                        // Populate the Commune dropdown for the current address row
-                        populateDropdown(communeSelect, filteredCommunes, 'idCommune', 'name');
+                    // Enable the District dropdown and reset Commune dropdown
+                    districtSelect.disabled = filteredDistricts.length === 0;
+                    communeSelect.disabled = true;
+                    communeSelect.innerHTML = '<option value="">Select a commune</option>';
+                });
 
-                        // Enable the Commune dropdown if there are any filtered communes
-                        communeSelect.disabled = filteredCommunes.length === 0;
-                    });
-                }
-            });
+                // Event listener for District selection
+                districtSelect.addEventListener("change", function () {
+                    const selectedDistrict = districtSelect.value;
+                    const filteredCommunes = locationData.commune.filter(commune => commune.idDistrict === selectedDistrict);
+
+                    // Populate the Commune dropdown for the current address row
+                    populateDropdown(communeSelect, filteredCommunes, 'idCommune', 'name');
+
+                    // Enable the Commune dropdown if there are any filtered communes
+                    communeSelect.disabled = filteredCommunes.length === 0;
+                });
+            } else {
+                // If no specific target is provided, populate all address rows
+                const addressContainers = document.querySelectorAll('.address-row');
+                addressContainers.forEach(container => {
+                    const provinceSelect = container.querySelector('select[name="province[]"]');
+                    const districtSelect = container.querySelector('select[name="district[]"]');
+                    const communeSelect = container.querySelector('select[name="commune[]"]');
+
+                    if (provinceSelect && districtSelect && communeSelect) {
+                        // Populate the Province dropdown
+                        populateDropdown(provinceSelect, locationData.province, 'idProvince', 'name');
+
+                        // Event listener for Province selection
+                        provinceSelect.addEventListener("change", function () {
+                            const selectedProvince = provinceSelect.value;
+                            const filteredDistricts = locationData.district.filter(district => district.idProvince === selectedProvince);
+
+                            // Populate the District dropdown for the current address row
+                            populateDropdown(districtSelect, filteredDistricts, 'idDistrict', 'name');
+
+                            // Enable the District dropdown and reset Commune dropdown
+                            districtSelect.disabled = filteredDistricts.length === 0;
+                            communeSelect.disabled = true;
+                            communeSelect.innerHTML = '<option value="">Select a commune</option>';
+                        });
+
+                        // Event listener for District selection
+                        districtSelect.addEventListener("change", function () {
+                            const selectedDistrict = districtSelect.value;
+                            const filteredCommunes = locationData.commune.filter(commune => commune.idDistrict === selectedDistrict);
+
+                            // Populate the Commune dropdown for the current address row
+                            populateDropdown(communeSelect, filteredCommunes, 'idCommune', 'name');
+
+                            // Enable the Commune dropdown if there are any filtered communes
+                            communeSelect.disabled = filteredCommunes.length === 0;
+                        });
+                    }
+                });
+            }
         })
         .catch(error => {
             console.error('Error loading location data:', error);
