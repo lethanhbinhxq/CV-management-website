@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeCertificateManagement();
     initializeSkillManagement();
     initializeWorkManagement();
+
+    initializeOtherManagement();
+    initializeReferenceManagement();
 });
 
 /**
@@ -323,7 +326,7 @@ function updateRemoveCertificateButtons(container) {
 }
 
 /**
- * Initialize dynamic work section management.
+ * Initialize dynamic skill section management.
  */
 function initializeSkillManagement() {
     const skillContainer = document.getElementById('skillContainer');
@@ -454,6 +457,142 @@ function updateRemoveWorkButtons(container) {
     // Show remove buttons only if there are more than one entries
     removeButtons.forEach(button => button.classList.remove('d-none'));
     if (workEntries.length === 1) {
+        removeButtons.forEach(button => button.classList.add('d-none'));
+    }
+}
+
+/**
+ * Initialize dynamic other section management.
+ */
+function initializeOtherManagement() {
+    const otherContainer = document.getElementById('otherContainer');
+    const addOtherBtn = document.getElementById('addOtherBtn');
+
+    if (otherContainer && addOtherBtn) {
+        // Add new other entry
+        addOtherBtn.addEventListener('click', function () {
+            manageOtherEntries(otherContainer, 'add');
+        });
+
+        // Delegate event for remove buttons
+        otherContainer.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-other-btn')) {
+                const otherEntry = event.target.closest('.other-entry');
+                manageOtherEntries(otherContainer, 'remove', otherEntry);
+            }
+        });
+    }
+}
+
+function manageOtherEntries(container, action, entryToRemove = null) {
+    if (action === 'add') {
+        // Clone the first other entry
+        const firstEntry = container.querySelector('.other-entry');
+        if (firstEntry) {
+            const newEntry = firstEntry.cloneNode(true);
+
+            // Clear input values
+            newEntry.querySelectorAll('input, select').forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
+            });
+
+            // Remove 'd-none' class from remove button
+            const removeButton = newEntry.querySelector('.remove-other-btn');
+            if (removeButton) {
+                removeButton.classList.remove('d-none');
+            }
+
+            // Append the new entry
+            container.appendChild(newEntry);
+        }
+    } else if (action === 'remove' && entryToRemove) {
+        // Remove the specified other entry
+        container.removeChild(entryToRemove);
+    }
+
+    // Update remove button visibility
+    updateRemoveOtherButtons(container);
+}
+
+function updateRemoveOtherButtons(container) {
+    const otherEntries = container.querySelectorAll('.other-entry');
+    const removeButtons = container.querySelectorAll('.remove-other-btn');
+
+    // Show remove buttons only if there are more than one entries
+    removeButtons.forEach(button => button.classList.remove('d-none'));
+    if (otherEntries.length === 1) {
+        removeButtons.forEach(button => button.classList.add('d-none'));
+    }
+}
+
+/**
+ * Initialize dynamic reference section management.
+ */
+function initializeReferenceManagement() {
+    const referenceContainer = document.getElementById('referenceContainer');
+    const addReferenceBtn = document.getElementById('addReferenceBtn');
+
+    if (referenceContainer && addReferenceBtn) {
+        // Add new reference entry
+        addReferenceBtn.addEventListener('click', function () {
+            manageReferenceEntries(referenceContainer, 'add');
+        });
+
+        // Delegate event for remove buttons
+        referenceContainer.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-reference-btn')) {
+                const referenceEntry = event.target.closest('.reference-entry');
+                manageReferenceEntries(referenceContainer, 'remove', referenceEntry);
+            }
+        });
+    }
+}
+
+function manageReferenceEntries(container, action, entryToRemove = null) {
+    if (action === 'add') {
+        // Clone the first reference entry
+        const firstEntry = container.querySelector('.reference-entry');
+        if (firstEntry) {
+            const newEntry = firstEntry.cloneNode(true);
+
+            // Clear input values
+            newEntry.querySelectorAll('input, select').forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
+            });
+
+            // Remove 'd-none' class from remove button
+            const removeButton = newEntry.querySelector('.remove-reference-btn');
+            if (removeButton) {
+                removeButton.classList.remove('d-none');
+            }
+
+            // Append the new entry
+            container.appendChild(newEntry);
+        }
+    } else if (action === 'remove' && entryToRemove) {
+        // Remove the specified reference entry
+        container.removeChild(entryToRemove);
+    }
+
+    // Update remove button visibility
+    updateRemoveReferenceButtons(container);
+}
+
+function updateRemoveReferenceButtons(container) {
+    const referenceEntries = container.querySelectorAll('.reference-entry');
+    const removeButtons = container.querySelectorAll('.remove-reference-btn');
+
+    // Show remove buttons only if there are more than one entries
+    removeButtons.forEach(button => button.classList.remove('d-none'));
+    if (referenceEntries.length === 1) {
         removeButtons.forEach(button => button.classList.add('d-none'));
     }
 }

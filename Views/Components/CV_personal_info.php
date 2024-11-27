@@ -100,5 +100,5 @@
 
 <div class="mb-3">
     <label for="objective" class="form-label">Objective</label>
-    <textarea class="form-control" id="objective" rows="5" placeholder="Enter your objective." required></textarea>
+    <textarea class="form-control" id="objective" name="objective" rows="5" placeholder="Enter your objective." required></textarea>
 </div>
