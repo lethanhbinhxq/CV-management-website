@@ -15,49 +15,22 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Create CV</title>
-</head>
-
-<body>
-    <div class="container my-5">
-        <h1 class="text-center fw-bold mb-5">Create Your CV</h1>
-        <form action="processCV.php" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="name" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+<div class="container my-4">
+    <h1 class="my-4 text-center text-uppercase fw-bold text-main-pink">Create CV</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="bg-form rounded">
+                <form method="post" class="p-5 mb-5" id="createCV_form">
+                    <?php include 'Views/Components/CV_personal_info.php'; ?>
+                    <?php include 'Views/Components/CV_education.php'; ?>
+                    <?php include 'Views/Components/CV_work_experience.php'; ?>
+                    <?php include 'Views/Components/CV_others.php'; ?>
+                    <button type="submit" class="mt-2 btn btn-primary">Create CV</button>
+                </form>
             </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="skills" class="form-label">Skills</label>
-                <input type="text" class="form-control" id="skills" name="skills" placeholder="List your skills (comma separated)" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="experience" class="form-label">Experience</label>
-                <textarea class="form-control" id="experience" name="experience" rows="4" placeholder="Describe your work experience" required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="uploadCV" class="form-label">Upload CV (PDF)</label>
-                <input type="file" class="form-control" id="uploadCV" name="uploadCV" accept=".pdf" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-lg w-100">Save CV</button>
-        </form>
+        </div>
     </div>
-</body>
-
-</html>
+</div>
+<script src="/CV-management-website/Scripts/dynamic_item.js"></script>
+<script src="/CV-management-website/Scripts/load_location.js"></script>
 

@@ -41,7 +41,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <?php include 'Views/Components/navbar.php'; ?>
     
-    <?php include 'Views/Pages/createCV.php'; ?>
+    <?php include 'Controllers/redirect.php'; ?>
     
     <?php include 'Views/Components/footer.php'; ?>
 </body>

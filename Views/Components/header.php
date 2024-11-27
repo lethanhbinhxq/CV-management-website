@@ -20,47 +20,35 @@
 
     <!-- Log in / Log out / Profile -->
     <div>
-        <!-- Phần xử lý Login -->
-        <?php
-        session_start();
-        if (isset($_SESSION['username'])) {
-            echo '
+        <?php if (isset($_SESSION['username'])): ?>
+            <!-- Notification button -->
+            <button class="btn btn-outline-secondary rounded-circle me-5" type="button" id="profile" title="Profile"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-bell-fill" style="font-size: larger;"></i>
+            </button>
+
             <!-- Profile button -->
             <button class="btn btn-outline-secondary rounded-circle mx-5" type="button" id="profileButton" title="Profile"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-fill" style="font-size: larger;"></i>
             </button>
-        
+
             <div id="profileDropdown" class="dropdown-menu dropdown-menu-blue text-center">
-                <span id="usernameDisplay">' . htmlspecialchars($_SESSION['username']) .'</span>
+                <span id="usernameDisplay"><?= htmlspecialchars($_SESSION['username']) ?></span>
                 <a href="#" class="dropdown-item">My Profile</a>
                 <a href="/CV-management-website/Controllers/logout.php" class="dropdown-item">Log Out</a>
             </div>
-            ';
-        } else {
-            echo '
+
+        <?php else: ?>
             <button class="btn btn-outline-secondary me-2" type="button" id="loginButton"
-                onclick="window.location.href=\'http://localhost/CV-management-website/?page=login\'">
+                onclick="window.location.href='http://localhost/CV-management-website/?page=login'">
                 Log In
             </button>
             <button class="btn btn-outline-secondary" type="button" id="signupButton"
-                onclick="window.location.href=\'http://localhost/CV-management-website/?page=signup\'">
+                onclick="window.location.href='http://localhost/CV-management-website/?page=signup'">
                 Sign Up
             </button>
-            ';
-        }
-        ?>
-        
-        <!-- Notification button -->
-        <button class="btn btn-outline-secondary rounded-circle me-5" type="button" id="profile"
-            title="Profile" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-fill" style="font-size: larger;"></i>
-        </button>
-
-        <div id="notificationDropdown" class="dropdown-menu dropdown-menu-blue text-center">
-            <a href="#" class="dropdown-item">My Profile</a>
-            <a href="#" class="dropdown-item">Log Out</a>
-        </div>
+        <?php endif; ?>
 
     </div>
 

@@ -17,6 +17,19 @@ if (isset($_GET['page'])) {
         case 'signup':
             include $baseDir . 'signup.php';
             break;
+        case 'createCV':
+            include 'Views/Pages/createCV.php';
+            break;
+        case 'viewCV':
+            include 'Views/Pages/viewCV.php';
+            break;
+        case 'myCV':
+            include 'Views/Pages/myCV.php';
+            break;
+        case 'contact':
+            include 'Views/Pages/contact.php';
+            break;
+
         default:
             // Nếu không tìm thấy trang, hiển thị lỗi
             echo "<h2>Page not found</h2>";

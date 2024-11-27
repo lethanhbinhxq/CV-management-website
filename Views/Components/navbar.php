@@ -10,7 +10,7 @@
                   CV
                 </a>
                 <ul class="dropdown-menu dropdown-menu-blue" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Create CV</a></li>
+                  <li><a class="dropdown-item" href="index.php?page=createCV">Create CV</a></li>
                   <li><a class="dropdown-item" href="#">View CV</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">My CV</a></li>
