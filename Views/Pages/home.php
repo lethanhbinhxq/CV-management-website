@@ -1,17 +1,25 @@
-<div class="container my-5">
+<div class="container my-5"> 
     <div class="mb-5">
         <div class="row align-items-center">
+            <!-- Cột bên trái -->
             <div class="col-sm-6">
                 <h1 class="text-center fw-bold">
                     Professional Resume Management Website
                 </h1>
                 <p>Build, manage, and share your resumes effortlessly with our intuitive platform.
                     Showcase your skills and experience to potential employers with just a few clicks.</p>
-
+                
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary btn-lg fw-bold">Get Started</button>
+                    <!-- PHP kiểm tra trạng thái đăng nhập -->
+                    <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0): ?>
+                        <!-- Nếu đã đăng nhập, chuyển tới trang tạo CV -->
+                        <a href="index.php?page=createCV" class="btn btn-primary btn-lg fw-bold">Get Started</a>
+                    <?php else: ?>
+                        <!-- Nếu chưa đăng nhập, chuyển tới trang đăng nhập -->
+                        <a href="Views/Pages/login.php" class="btn btn-primary btn-lg fw-bold">Get Started</a>
+                    <?php endif; ?>
                 </div>
-            </div>
+            </div> 
 
             <div class="col-sm-6">
                 <div class="bg-secondary" style="height: 300px;"></div>
