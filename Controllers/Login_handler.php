@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['password'])) {
             // Đăng nhập thành công
             $_SESSION['username'] = $username; // Lưu session
-            header("Location: /CV-management-website/?page=home");
+            header("Location: /CV-management-website/?page=login");
             exit();
         }
     }

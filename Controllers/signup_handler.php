@@ -38,6 +38,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = "Password must be at least 8 characters long, include lowercase, uppercase, a number, and a special character.";
     }
 
+    // Kiểm tra sự tồn tại của email và username trong cơ sở dữ liệu
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? OR username = ?");
+    $stmt->bind_param("ss", $email, $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Kiểm tra trùng lặp username, password và cả hai
+    $emailExists = false;
+    $usernameExists = false;
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            if ($row['email'] == $email) {
+                $emailExists = true;
+            }
+            if ($row['username'] == $username) {
+                $usernameExists = true;
+            }
+        }
+        
+        if ($emailExists && $usernameExists) {
+            $errors[] = "Both the email address and username are already taken.";
+        } elseif ($emailExists) {
+            $errors[] = "The email address is already registered.";
+        } elseif ($usernameExists) {
+            $errors[] = "The username is already taken.";
+        }
+    }
+
+    $stmt->close();
+
     // Nếu có lỗi, trả về trang đăng ký với thông báo lỗi
     if (!empty($errors)) {
         session_start();
