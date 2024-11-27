@@ -73,8 +73,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
             <?php else: ?>
                 <!-- If user is not logged in -->
-                <a href="login.php" class="btn btn-outline-light me-2">Log In</a>
-                <a href="signup.php" class="btn btn-outline-success">Sign Up</a>
+                <a href="index.php?page=login" class="btn btn-outline-light me-2">Log In</a>
+                <a href="index.php?page=signup" class="btn btn-outline-success">Sign Up</a>
             <?php endif; ?>
         </div>
     </div>
@@ -119,6 +119,12 @@ if (session_status() === PHP_SESSION_NONE) {
             switch ($page) {
                 case 'home':
                     include 'Views/Pages/home.php';
+                    break;
+                case 'login':
+                    include 'Views/Pages/login.php';
+                    break;
+                case'signup':
+                    include 'Views/Pages/signup.php';
                     break;
                 case 'createCV':
                     include 'Views/Pages/createCV.php'; // Ensure this file exists
