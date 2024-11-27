@@ -16,7 +16,7 @@
                         <a href="index.php?page=createCV" class="btn btn-primary btn-lg fw-bold">Get Started</a>
                     <?php else: ?>
                         <!-- Nếu chưa đăng nhập, chuyển tới trang đăng nhập -->
-                        <a href="Views/Pages/login.php" class="btn btn-primary btn-lg fw-bold">Get Started</a>
+                        <a href="index.php?page=login" class="btn btn-primary btn-lg fw-bold">Get Started</a>
                     <?php endif; ?>
                 </div>
             </div> 
