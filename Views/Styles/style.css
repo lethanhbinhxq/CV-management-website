@@ -111,3 +111,6 @@ body {
     margin: 0 auto;
 }
 
+.tooltip-inner {
+    text-align: left !important;
+}

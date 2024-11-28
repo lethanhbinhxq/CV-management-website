@@ -25,12 +25,16 @@ if (!isset($_SESSION['user_id'])) {
                     <?php include 'Views/Components/CV_education.php'; ?>
                     <?php include 'Views/Components/CV_work_experience.php'; ?>
                     <?php include 'Views/Components/CV_others.php'; ?>
+                    <?php include 'Views/Components/CV_visibility.php'; ?>
+
+
                     <button type="submit" class="mt-2 btn btn-primary">Create CV</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script src="/CV-management-website/Scripts/dynamic_item.js"></script>
-<script src="/CV-management-website/Scripts/load_location.js"></script>
-
+<script src="/CV-management-website/Controllers/Scripts/dynamic_item.js"></script>
+<script src="/CV-management-website/Controllers/Scripts/load_location.js"></script>
+<script src="/CV-management-website/Controllers/Scripts/trigger_tooltip.js"></script>
+<script src="/CV-management-website/Controllers/Scripts/customed_visibility.js"></script>

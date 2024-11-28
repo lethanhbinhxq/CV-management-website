@@ -1,5 +1,5 @@
 function loadLocationData(targetDropdown = null) {
-    fetch('/CV-management-website/Scripts/location.json')  // Adjust the path if necessary
+    fetch('/CV-management-website/Controllers/Scripts/location.json')  // Adjust the path if necessary
         .then(response => response.json())
         .then(locationData => {
             if (targetDropdown) {
