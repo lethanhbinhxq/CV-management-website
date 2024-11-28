@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <div class="container-fluid d-flex justify-content-around bg-dark text-center align-items-center">
     <!-- Logo & Name -->
     <a href="index.php" class="text-decoration-none">
@@ -20,12 +24,12 @@
 
     <!-- Log in / Log out / Profile -->
     <div>
-        <?php if (isset($_SESSION['username'])): ?>
+        <?php if (isset($_SESSION['user_id'])): ?>
             <!-- Notification button -->
-            <button class="btn btn-outline-secondary rounded-circle me-5" type="button" id="profile" title="Profile"
+            <!-- <button class="btn btn-outline-secondary rounded-circle me-5" type="button" id="profile" title="Profile"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-bell-fill" style="font-size: larger;"></i>
-            </button>
+            </button> -->
 
             <!-- Profile button -->
             <button class="btn btn-outline-secondary rounded-circle mx-5" type="button" id="profileButton" title="Profile"

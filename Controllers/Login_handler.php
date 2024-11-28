@@ -52,15 +52,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Kiểm tra password (sử dụng password_verify)
         if (password_verify($password, $user['password'])) {
             // Đăng nhập thành công
+            $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $username; // Lưu session
-            header("Location: /CV-management-website/?page=login");
+            $_SESSION['full_name'] = $fullName;
+            $_SESSION['email'] = $email;
+            header("Location: /CV-management-website/index.php");
             exit();
         }
     }
 
     // Nếu thất bại
     $_SESSION['error'] = "Username or password is incorrect";
-    header("Location: /CV-management-website/?page=login");
+    header("Location: /CV-management-website/index.php?page=login");
     exit();
 }
 ?>

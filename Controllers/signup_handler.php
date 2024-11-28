@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Kết nối với database
 include_once '../Models/db_connect.php'; // Kết nối DB
 
@@ -86,12 +87,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         // Đăng ký thành công, chuyển về trang home
-        header("Location: /CV-management-website/?page=home");
+        unset($_SESSION['errors']);
+        $_SESSION['user_id'] = $conn->insert_id;
+        $_SESSION['username'] = $username;
+        $_SESSION['full_name'] = $fullName;
+        $_SESSION['email'] = $email;
+        setcookie('user_logged_in', 'true', time() + 3600, '/'); // 1-hour expiry
+        header('Location: /CV-management-website/index.php'); // Redirect to homepage or dashboard
+        echo '<h1>Sign up successfully!</h1>';
         exit();
     } else {
-        session_start();
         $_SESSION['errors'] = ["Error inserting data: " . $stmt->error];
-        header("Location: /CV-management-website/?page=signup");
+        header("Location: /CV-management-website/index.php?page=signup");
     }
 
     $stmt->close();

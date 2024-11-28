@@ -54,4 +54,4 @@
   </div>
 </div>
 
-<script src="/CV-management-website/Scripts/validation.js"></script>
+<script src="/CV-management-website/Controllers/Scripts/validation.js"></script>

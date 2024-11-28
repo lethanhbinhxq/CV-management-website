@@ -1,19 +1,3 @@
-<!-- For test only -->
-<?php
-session_start();  // Bắt đầu phiên làm việc
-$_SESSION['user_id'] = 0; // Giả định thoát đăng nhập, hoặc bạn có thể để dòng này tùy theo trạng thái
-//$_SESSION['username'] = 'user1';
-
-session_unset();
-session_destroy();
-?>
-<?php
-// Kiểm tra trạng thái session trước khi gọi session_start()
-if (session_status() === PHP_SESSION_NONE) {
-    session_start(); // Chỉ khởi tạo session nếu chưa được khởi tạo
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

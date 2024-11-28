@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 // Câu lệnh SQL để tạo cơ sở dữ liệu 'cv_management'
-$sql = "CREATE DATABASE cv_management";
+$sql = "CREATE DATABASE IF NOT EXISTS cv_management";
 if ($conn->query($sql) === TRUE) {
     echo "Cơ sở dữ liệu 'cv_management' được tạo thành công<br>";
 } else {
@@ -23,7 +23,7 @@ if ($conn->query($sql) === TRUE) {
 $conn->select_db("cv_management");
 
 // Câu lệnh SQL để tạo bảng 'users'
-$sql = "CREATE TABLE users (
+$sql = "CREATE TABLE IF NOT EXISTS users (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
