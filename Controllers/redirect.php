@@ -32,7 +32,7 @@ if (isset($_GET['page'])) {
 
         default:
             // Nếu không tìm thấy trang, hiển thị lỗi
-            include 'Views/Pages/notFound.php';
+            echo "<h2>Page not found</h2>";
             break;
     }
 } else {

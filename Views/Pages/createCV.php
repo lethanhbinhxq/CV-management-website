@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 <div class="container my-4">
-    <h1 class="my-4 text-center text-uppercase fw-bold text-primary">Create CV</h1>
+    <h1 class="my-4 text-center text-uppercase fw-bold text-main-pink">Create CV</h1>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="bg-form rounded">
