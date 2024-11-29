@@ -1,5 +1,5 @@
 <div class="container my-4">
-    <h1 class="my-4 text-center text-uppercase fw-bold text-main-pink">Contact</h1>
+    <h1 class="my-4 text-center text-uppercase text-primary fw-bold">Contact</h1>
 
     <div class="row justify-content-center">
         <div class="col-md-5">
