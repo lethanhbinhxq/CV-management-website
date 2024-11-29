@@ -1,5 +1,5 @@
 <div class="container my-4">
-  <h1 class="my-4 text-center text-uppercase fw-bold text-main-pink">Log In</h1>
+  <h1 class="my-4 text-center text-uppercase fw-bold text-primary">Log In</h1>
 
   <?php
   #session_start(); // Khởi tạo session để đọc dữ liệu
@@ -29,7 +29,7 @@
           <button type="submit" class="mt-2 btn btn-primary">Log In</button>
 
           <p class="mt-4">Haven't got an account?
-            <a href="?page=signup" class="text-main-pink fw-bold">Sign up</a>
+            <a href="?page=signup" class="text-primary fw-bold">Sign up</a>
           </p>
         <!-- Hiển thị lỗi -->
         <div id="errorMessages" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>

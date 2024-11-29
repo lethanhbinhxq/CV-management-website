@@ -62,28 +62,28 @@
         <!-- Address row template -->
         <div class="address-row mb-2">
             <div class="mb-2">
-                <label for="province" class="text-main-pink">Province</label>
+                <label for="province" class="text-primary">Province</label>
                 <select name="province[]" class="form-select" required>
                     <option value="">Select a province</option>
                 </select>
             </div>
 
             <div class="mb-2">
-                <label for="district" class="text-main-pink">District</label>
+                <label for="district" class="text-primary">District</label>
                 <select name="district[]" class="form-select" disabled required>
                     <option value="">Select a district</option>
                 </select>
             </div>
 
             <div class="mb-2">
-                <label for="commune" class="text-main-pink">Commune</label>
+                <label for="commune" class="text-primary">Commune</label>
                 <select name="commune[]" class="form-select" disabled required>
                     <option value="">Select a commune</option>
                 </select>
             </div>
 
             <div class="mb-2">
-                <label for="streetAddress" class="text-main-pink">Street address</label>
+                <label for="streetAddress" class="text-primary">Street address</label>
                 <input type="text" class="form-control" name="streetAddress[]" placeholder="Enter your street address" required>
             </div>
 

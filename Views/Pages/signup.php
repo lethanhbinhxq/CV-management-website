@@ -1,6 +1,6 @@
 <div class="container my-4">
   
-  <h1 class="my-4 text-center text-uppercase fw-bold text-main-pink">Sign Up</h1>
+  <h1 class="my-4 text-center text-uppercase fw-bold text-primary">Sign Up</h1>
 
   <?php
   if (isset($_SESSION['errors'])): ?>
@@ -43,7 +43,7 @@
           <button type="submit" class="mt-2 btn btn-primary">Sign Up</button>
 
           <p class="mt-4">Already have an account?
-          <a href="?page=login" class="text-main-pink fw-bold">Log in</a>
+          <a href="?page=login" class="text-primary fw-bold">Log in</a>
           </p>
 
           <!-- Hiển thị lỗi -->
