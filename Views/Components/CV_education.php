@@ -9,6 +9,7 @@
                 <input type="text" class="form-control" name="degree[]" placeholder="E.g. Bachelor" required>
                 <div class="degree-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
+            
             <div class="col-md-6">
                 <label for="major" class="form-label">Major</label>
                 <input type="text" class="form-control" name="major[]" placeholder="E.g. Computer Science" required>

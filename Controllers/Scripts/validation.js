@@ -104,6 +104,38 @@ function validateDynamicPhoneNumbers(phoneFields) {
     return hasError;
 }
 
+// General validation function for text fields (degree, major, school)
+function validateTextField(value, fieldType) {
+    const capitalizedFieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
+
+    if (value.length < 2 || value.length > 255) {
+        return `${capitalizedFieldType} must be between 2 and 255 characters.`;
+    }
+
+    // Check for allowed characters (letters, spaces, hyphens, apostrophes, periods)
+    const regex = /^[a-zA-Z\s\-'.]+$/;
+    if (!regex.test(value.trim())) {
+        return `${capitalizedFieldType} can only contain letters, spaces, hyphens, apostrophes, and periods.`;
+    }
+
+    return null; // No errors
+}
+
+// Validate dynamic text fields (degree, major, school) with type-specific error handling
+function validateDynamicTextFields(fieldElements, fieldType) {
+    let hasError = false;
+
+    fieldElements.forEach((field, index) => {
+        // Dynamically select the error element based on fieldType (e.g., major-error, degree-error)
+        const errorElement = document.querySelectorAll(`.${fieldType}-error`)[index];
+        const error = validateTextField(field.value, fieldType);
+        displayFieldError(errorElement, error);
+        if (error) hasError = true;
+    });
+
+    return hasError;
+}
+
 // Handle form submission
 function handleFormSubmit(form, validations, dynamicValidations = []) {
     form.addEventListener('submit', (e) => {
@@ -195,8 +227,12 @@ if (createCVForm) {
             errorElement: document.getElementById("job_title_error"),
         },
     ], [
-        // Dynamic validation function for phone numbers
-        () => validateDynamicPhoneNumbers(document.querySelectorAll(".phoneNumber"))
+        // Dynamic validation function
+        () => validateDynamicPhoneNumbers(document.querySelectorAll(".phoneNumber")),
+
+        () => validateDynamicTextFields(document.querySelectorAll("input[name='degree[]']"), 'degree'),
+        () => validateDynamicTextFields(document.querySelectorAll("input[name='major[]']"), 'major'),
+        () => validateDynamicTextFields(document.querySelectorAll("input[name='school[]']"), 'school'),
     ]
     );
 }
