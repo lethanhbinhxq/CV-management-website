@@ -135,8 +135,6 @@ function validateStartEndDate(startMonth, startYear, endMonth, endYear) {
     const startDate = new Date(startYear, startMonth - 1); // JavaScript months are 0-indexed
     const endDate = new Date(endYear, endMonth - 1);
 
-    console.log(startDate, endDate)
-
     // Check if the start date is later than the end date
     if (startDate > endDate) {
         return "Start date cannot be later in time than end date";
