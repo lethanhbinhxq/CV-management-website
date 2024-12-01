@@ -20,19 +20,19 @@
             <label for="username" class="form-label" >Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
           </div>
+          <div id="username_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
 
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
           </div>
+          <div id="password_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
 
           <button type="submit" class="mt-2 btn btn-primary">Log In</button>
 
           <p class="mt-4">Haven't got an account?
             <a href="?page=signup" class="text-primary fw-bold">Sign up</a>
           </p>
-        <!-- Hiển thị lỗi -->
-        <div id="errorMessages" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
         </form>
       </div>
     </div>

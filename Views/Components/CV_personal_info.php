@@ -2,21 +2,24 @@
 
 <div class="row justify-content-center mb-3">
     <div class="col-md-6">
-        <label for="fullName" class="form-label">Full name</label>
-        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name"
+        <label for="full_name" class="form-label">Full name</label>
+        <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name"
             required>
+        <div id="full_name_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
     </div>
 
     <div class="col-md-6">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+        <div id="email_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
     </div>
 </div>
 
 <div class="row mb-3">
     <div class="col-md-6">
-        <label for="jobTitle" class="form-label">Job title</label>
-        <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter job title" required>
+        <label for="job_title" class="form-label">Job title</label>
+        <input type="text" class="form-control" id="job_title" name="job_title" placeholder="Enter job title" required>
+        <div id="job_title_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
     </div>
 
     <div class="col-md-6">
@@ -41,11 +44,13 @@
     <label for="phoneNumber" class="form-label">Phone Number</label>
     <div id="phoneNumbersContainer">
         <div class="input-group mb-2 phone-number-row">
-            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumbers[]"
+            <input type="tel" class="form-control phoneNumber" id="phoneNumber" name="phoneNumbers[]"
                 placeholder="Enter your phone number" required>
             <button type="button" class="btn btn-danger remove-phone-btn d-none">Remove</button>
         </div>
+        <div class="phone_number_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
     </div>
+
 
     <div class="d-flex justify-content-center">
         <button type="button" class="btn rounded-circle btn-add" id="addPhoneNumberBtn">
@@ -84,7 +89,8 @@
 
             <div class="mb-2">
                 <label for="streetAddress" class="text-primary">Street address</label>
-                <input type="text" class="form-control" name="streetAddress[]" placeholder="Enter your street address" required>
+                <input type="text" class="form-control" name="streetAddress[]" placeholder="Enter your street address"
+                    required>
             </div>
 
             <button type="button" class="btn btn-danger remove-address-btn d-none">Remove</button>
@@ -100,5 +106,6 @@
 
 <div class="mb-3">
     <label for="objective" class="form-label">Objective</label>
-    <textarea class="form-control" id="objective" name="objective" rows="5" placeholder="Enter your objective." required></textarea>
+    <textarea class="form-control" id="objective" name="objective" rows="5" placeholder="Enter your objective."
+        required></textarea>
 </div>

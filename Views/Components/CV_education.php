@@ -7,10 +7,12 @@
             <div class="col-md-6">
                 <label for="degree" class="form-label">Degree</label>
                 <input type="text" class="form-control" name="degree[]" placeholder="E.g. Bachelor" required>
+                <div class="degree-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
             <div class="col-md-6">
                 <label for="major" class="form-label">Major</label>
                 <input type="text" class="form-control" name="major[]" placeholder="E.g. Computer Science" required>
+                <div class="major-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
         </div>
 
@@ -18,6 +20,7 @@
             <label for="school" class="form-label">School</label>
             <input type="text" class="form-control" name="school[]"
                 placeholder="E.g. Ho Chi Minh City University of Technology" required>
+            <div class="school-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
         </div>
 
         <div class="row justify-content-center mb-3">
@@ -99,7 +102,7 @@
 <div id="certificateContainer">
     <div class="certificate-entry mb-4">
         <div class="mb-3">
-            <label for="certificateTitle" class="form-label">Skill</label>
+            <label for="certificateTitle" class="form-label">Certificate Title</label>
             <input type="text" class="form-control" name="certificateTitle[]" placeholder="E.g. IELTS certificate"
                 required>
         </div>

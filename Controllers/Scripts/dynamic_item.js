@@ -52,7 +52,7 @@ function managePhoneNumbers(container, action, rowToRemove = null) {
         const phoneInput = document.createElement('input');
         phoneInput.type = 'tel';
         phoneInput.name = 'phoneNumbers[]';
-        phoneInput.classList.add('form-control');
+        phoneInput.classList.add('form-control', 'phoneNumber');
         phoneInput.placeholder = 'Enter your phone number';
         phoneInput.required = true;
 
@@ -62,12 +62,26 @@ function managePhoneNumbers(container, action, rowToRemove = null) {
         removeButton.classList.add('btn', 'btn-danger', 'remove-phone-btn');
         removeButton.textContent = 'Remove';
 
-        // Append input and button to the group
+        // Create error message container
+        const errorMessageContainer = document.createElement('div');
+        errorMessageContainer.classList.add('phone_number_error');
+        errorMessageContainer.style.color = 'red';
+        errorMessageContainer.style.fontSize = '0.9rem';
+        errorMessageContainer.style.marginTop = '10px';
+
+        // Append input, button, and error message container to the group
         newInputGroup.appendChild(phoneInput);
         newInputGroup.appendChild(removeButton);
 
-        // Add the new input group to the container
+        // Add the error message container after the phone number input
         container.appendChild(newInputGroup);
+        container.appendChild(errorMessageContainer);
+
+        // Add event listener to validate phone number
+        phoneInput.addEventListener('input', function() {
+            validatePhoneNumber(phoneInput, errorMessageContainer);
+        });
+
     } else if (action === 'remove' && rowToRemove) {
         // Remove the specified row
         container.removeChild(rowToRemove);
@@ -76,6 +90,7 @@ function managePhoneNumbers(container, action, rowToRemove = null) {
     // Update the visibility of the remove buttons
     updateRemovePhoneButtons(container);
 }
+
 
 /**
  * Update the visibility of remove buttons based on the number of rows.
