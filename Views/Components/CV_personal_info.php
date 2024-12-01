@@ -91,6 +91,7 @@
                 <label for="streetAddress" class="text-primary">Street address</label>
                 <input type="text" class="form-control" name="streetAddress[]" placeholder="Enter your street address"
                     required>
+                <div class="street_address_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
 
             <button type="button" class="btn btn-danger remove-address-btn d-none">Remove</button>

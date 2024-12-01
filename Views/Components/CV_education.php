@@ -85,6 +85,7 @@
                 </select>
             </div>
         </div>
+        <div class="start-end-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
 
         <!-- Remove button -->
         <button type="button" class="btn btn-danger remove-education-btn d-none">Remove</button>

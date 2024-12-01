@@ -104,7 +104,75 @@ function validateDynamicPhoneNumbers(phoneFields) {
     return hasError;
 }
 
-// General validation function for text fields (degree, major, school)
+function validateStreetAddress(address) {
+    // Check length (2 to 255 characters)
+    if (address.length < 2 || address.length > 255) {
+        return "Street address must be between 2 and 255 characters.";
+    }
+
+    // Check for allowed characters (letters, numbers, spaces, slashes, hyphens, commas, periods, apostrophes, and quotes)
+    const addressRegex = /^[a-zA-Z0-9\s\-\/\.,'"]+$/;
+    if (!addressRegex.test(address.trim())) {
+        return "Street address can only contain letters, numbers, spaces, slashes, hyphens, commas, periods, apostrophes, and quotes.";
+    }
+
+    return null; // No errors
+}
+
+function validateDynamicStreetAddress(addressFields) {
+    let hasError = false;
+    addressFields.forEach((address, index) => {
+        const errorElement = document.querySelectorAll(".street_address_error")[index];
+        const error = validateStreetAddress(address.value);
+        displayFieldError(errorElement, error);
+        if (error) hasError = true;
+    });
+    return hasError;
+}
+
+function validateStartEndDate(startMonth, startYear, endMonth, endYear) {
+    // Convert to Date objects for easy comparison
+    const startDate = new Date(startYear, startMonth - 1); // JavaScript months are 0-indexed
+    const endDate = new Date(endYear, endMonth - 1);
+
+    console.log(startDate, endDate)
+
+    // Check if the start date is later than the end date
+    if (startDate > endDate) {
+        return "Start date cannot be later in time than end date";
+    }
+    return null; // No errors
+}
+
+function validateDynamicEducationDate() {
+    let hasError = false;
+    
+    // Get all start and end date fields
+    const startMonths = document.querySelectorAll("select[name='startMonth[]']");
+    const startYears = document.querySelectorAll("select[name='startYear[]']");
+    const endMonths = document.querySelectorAll("select[name='endMonth[]']");
+    const endYears = document.querySelectorAll("select[name='endYear[]']");
+    
+    startMonths.forEach((startMonth, index) => {
+        const startYear = startYears[index].value;
+        const endMonth = endMonths[index].value;
+        const endYear = endYears[index].value;
+        
+        const errorElement = document.querySelectorAll(".start-end-error")[index];
+        
+        // Validate dates
+        const error = validateStartEndDate(startMonth.value, startYear, endMonth, endYear);
+        
+        // Display error if validation fails
+        displayFieldError(errorElement, error);
+        
+        if (error) hasError = true;
+    });
+
+    return hasError;
+}
+
+// General validation function for text fields (degree, major, school, etc)
 function validateTextField(value, fieldType) {
     const capitalizedFieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
 
@@ -229,10 +297,12 @@ if (createCVForm) {
     ], [
         // Dynamic validation function
         () => validateDynamicPhoneNumbers(document.querySelectorAll(".phoneNumber")),
+        () => validateDynamicStreetAddress(document.querySelectorAll("input[name='streetAddress[]']")),
 
         () => validateDynamicTextFields(document.querySelectorAll("input[name='degree[]']"), 'degree'),
         () => validateDynamicTextFields(document.querySelectorAll("input[name='major[]']"), 'major'),
         () => validateDynamicTextFields(document.querySelectorAll("input[name='school[]']"), 'school'),
+        () => validateDynamicEducationDate(),
     ]
     );
 }
