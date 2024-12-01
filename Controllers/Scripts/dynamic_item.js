@@ -152,7 +152,7 @@ function manageEducationEntries(container, action, entryToRemove = null) {
                 }
             });
 
-            newEntry.querySelectorAll('.degree-error, .major-error, .school-error').forEach(errorElement => {
+            newEntry.querySelectorAll('.degree-error, .major-error, .school-error, .start-end-error').forEach(errorElement => {
                 errorElement.textContent = ''; // Clear any previous error messages
             });
 
