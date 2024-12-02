@@ -304,7 +304,9 @@ if (createCVForm) {
 
         () => validateDynamicTextFields(document.querySelectorAll("input[name='certificateTitle[]']"), 'certificateTitle'),
         () => validateDynamicTextFields(document.querySelectorAll("input[name='field[]']"), 'field'),
-        () => validateDynamicTextFields(document.querySelectorAll("input[name='issuingOrganization[]']"), 'issuingOrganization')
+        () => validateDynamicTextFields(document.querySelectorAll("input[name='issuingOrganization[]']"), 'issuingOrganization'),
+
+        () => validateDynamicTextFields(document.querySelectorAll("input[name='skill[]']"), 'skill')
     ]
     );
 }

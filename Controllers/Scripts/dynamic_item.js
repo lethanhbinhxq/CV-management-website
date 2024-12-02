@@ -388,6 +388,10 @@ function manageSkillEntries(container, action, entryToRemove = null) {
                 }
             });
 
+            newEntry.querySelectorAll('.skill-error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear any previous error messages
+            });
+
             // Remove 'd-none' class from remove button
             const removeButton = newEntry.querySelector('.remove-skill-btn');
             if (removeButton) {

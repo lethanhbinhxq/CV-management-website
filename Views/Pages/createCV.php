@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
                 <form method="post" class="p-5 mb-5" id="createCV_form">
                     <?php include 'Views/Components/CV_personal_info.php'; ?>
                     <?php include 'Views/Components/CV_education.php'; ?>
-                    <?php #include 'Views/Components/CV_work_experience.php'; ?>
+                    <?php include 'Views/Components/CV_work_experience.php'; ?>
                     <?php #include 'Views/Components/CV_others.php'; ?>
                     <?php #include 'Views/Components/CV_visibility.php'; ?>
 

@@ -6,6 +6,7 @@
             <div class="col-md-6">
                 <label for="skill" class="form-label">Skill</label>
                 <input type="text" class="form-control" name="skill[]" placeholder="E.g. Python" required>
+                <div class="skill-error mb-2" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
 
             <div class="col-md-6">
