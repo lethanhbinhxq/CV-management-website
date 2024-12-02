@@ -7,6 +7,9 @@ if (isset($_GET['page'])) {
     $page = $_GET['page'];
 
     // Điều hướng dựa trên giá trị của 'page'
+    if ($page != 'exportCV') {
+        include 'Views/Components/navbar.php';
+    }
     switch ($page) {
         case 'home':
             include $baseDir . 'home.php';
@@ -23,6 +26,12 @@ if (isset($_GET['page'])) {
         case 'viewCV':
             include 'Views/Pages/viewCV.php';
             break;
+        case 'detailCV':
+            include 'Views/Pages/detailCV.php';
+            break;
+        case 'exportCV':
+            include 'Views/Pages/exportCV.php';
+            break;
         case 'myCV':
             include 'Views/Pages/myCV.php';
             break;
@@ -32,7 +41,7 @@ if (isset($_GET['page'])) {
 
         default:
             // Nếu không tìm thấy trang, hiển thị lỗi
-            echo "<h2>Page not found</h2>";
+            include 'Views/Pages/notFound.php';
             break;
     }
 } else {

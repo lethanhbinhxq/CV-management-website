@@ -1,6 +1,6 @@
 <?php
 function renderCvCard($name, $jobTitle, $cvId) {
-    $detailsUrl = "index.php?page=detailCV?id=" . urlencode($cvId);
+    $detailsUrl = "index.php?page=detailCV&id=" . urlencode($cvId);
     echo "
     <div class='col-sm-3 mb-3'>
         <div class='card product-card p-2'>

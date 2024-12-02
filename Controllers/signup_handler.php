@@ -93,8 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['full_name'] = $fullName;
         $_SESSION['email'] = $email;
         setcookie('user_logged_in', 'true', time() + 3600, '/'); // 1-hour expiry
-        header('Location: /CV-management-website/index.php'); // Redirect to homepage or dashboard
-        echo '<h1>Sign up successfully!</h1>';
+        header('Location: /CV-management-website/index.php');
         exit();
     } else {
         $_SESSION['errors'] = ["Error inserting data: " . $stmt->error];

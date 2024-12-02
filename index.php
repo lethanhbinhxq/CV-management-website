@@ -22,8 +22,6 @@
 <body>
     <?php include 'Views/Components/header.php'; ?>
 
-    <?php include 'Views/Components/navbar.php'; ?>
-
     <!-- Redirect processing -->
     <?php include 'Controllers/redirect.php'; ?>
 
