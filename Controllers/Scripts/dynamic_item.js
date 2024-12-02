@@ -316,6 +316,10 @@ function manageCertificateEntries(container, action, entryToRemove = null) {
                 }
             });
 
+            newEntry.querySelectorAll('.certificateTitle-error, .field-error, .issuingOrganization-error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear any previous error messages
+            });
+
             // Remove 'd-none' class from remove button
             const removeButton = newEntry.querySelector('.remove-certificate-btn');
             if (removeButton) {

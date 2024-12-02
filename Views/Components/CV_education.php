@@ -9,7 +9,7 @@
                 <input type="text" class="form-control" name="degree[]" placeholder="E.g. Bachelor" required>
                 <div class="degree-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
-            
+
             <div class="col-md-6">
                 <label for="major" class="form-label">Major</label>
                 <input type="text" class="form-control" name="major[]" placeholder="E.g. Computer Science" required>
@@ -107,12 +107,14 @@
             <label for="certificateTitle" class="form-label">Certificate Title</label>
             <input type="text" class="form-control" name="certificateTitle[]" placeholder="E.g. IELTS certificate"
                 required>
+            <div class="certificateTitle-error mb-2" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
         </div>
 
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <label for="field" class="form-label">Field</label>
                 <input type="text" class="form-control" name="field[]" placeholder="E.g. English" required>
+                <div class="field-error mb-2" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
 
             <div class="col-md-6">
@@ -131,6 +133,7 @@
             <label for="issuingOrganization" class="form-label">Issuing organization</label>
             <input type="text" class="form-control" name="issuingOrganization[]" placeholder="E.g. British Council"
                 required>
+            <div class="issuingOrganization-error mb-2" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
         </div>
 
         <button type="button" class="btn btn-danger remove-certificate-btn d-none">Remove</button>
