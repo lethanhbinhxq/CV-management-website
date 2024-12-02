@@ -46,7 +46,7 @@ $sql = "CREATE TABLE IF NOT EXISTS cvs (
     job_title VARCHAR(255) NOT NULL,
     gender CHAR(1) NOT NULL,
     objective TEXT NOT NULL,
-    visibility VARCHAR(9) NOT NULL,
+    visibility VARCHAR(9) NOT NULL
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table 'cvs' created successfully \n";
@@ -59,7 +59,7 @@ $sql = "CREATE TABLE IF NOT EXISTS phone_numbers (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     cv_id INT(11) NOT NULL,
     FOREIGN KEY (cv_id) REFERENCES cvs(id),
-    phone_number VARCHAR(11) NOT NULL,
+    phone_number VARCHAR(11) NOT NULL
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table 'phone_numbers' created successfully \n";
@@ -124,7 +124,7 @@ $sql = "CREATE TABLE IF NOT EXISTS professional_experience (
     cv_id INT(11) NOT NULL,
     FOREIGN KEY (cv_id) REFERENCES cvs(id),
     skill VARCHAR(255) NOT NULL,
-    years_of_experience INT(11) NOT NULL CHECK (years_of_experience >= 1970 && years_of_experience <= 2024)
+    years_of_experience INT(11) NOT NULL
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table 'professional_experience' created successfully \n";
@@ -142,7 +142,7 @@ $sql = "CREATE TABLE IF NOT EXISTS work_history (
     start_month INT(11) NOT NULL CHECK (start_month >= 1 AND start_month <= 12),
     start_year INT(11) NOT NULL CHECK (start_year >= 1970 AND start_year <= 2024),
     end_month INT(11) NOT NULL CHECK (end_month >= 1 AND end_month <= 12),
-    end_year INT(11) NOT NULL CHECK (end_year >= 1970 AND end_year <= 2024),
+    end_year INT(11) NOT NULL CHECK (end_year >= 1970 AND end_year <= 2024)
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table 'work_history' created successfully \n";
@@ -164,8 +164,8 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table 'other_information': " . $conn->error . "\n";
 }
 
-// 10. 'references'
-$sql= "CREATE TABLE IF NOT EXISTS references (
+// 10. 'reference'
+$sql= "CREATE TABLE IF NOT EXISTS reference (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     cv_id INT(11) NOT NULL,
     FOREIGN KEY (cv_id) REFERENCES cvs(id),
@@ -173,13 +173,13 @@ $sql= "CREATE TABLE IF NOT EXISTS references (
     relationship VARCHAR(255) NOT NULL,
     position VARCHAR(255) NOT NULL,
     workplace VARCHAR(255) NOT NULL,
-    phone_nummber VARCHAR(11) NOT NULL,
+    phone_number VARCHAR(11) NOT NULL,
     email VARCHAR(255) NOT NULL
 )";
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'references' created successfully \n";
+    echo "Table 'reference' created successfully \n";
 } else {
-    echo "Error creating table 'references': " . $conn->error . "\n";
+    echo "Error creating table 'reference': " . $conn->error . "\n";
 }
 
 // 11. 'viewers'
@@ -198,4 +198,3 @@ if ($conn->query($sql) === TRUE) {
 
 // Đóng kết nối
 $conn->close();
-?>

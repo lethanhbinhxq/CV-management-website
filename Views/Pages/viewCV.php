@@ -3,10 +3,15 @@
     <div class="row">
     
     <?php
+    // Include card rendering and pagination logic
     include 'Views/Components/cardCV.php';
-    for ($i = 0; $i < 10; $i++) {
-        renderCvCard('Le Thanh Binh', 'Web Developer', 1);
-    }
+
+    // Set the current page and number of CVs per page
+    $currentPage = isset($_GET['paging']) ? (int)$_GET['paging'] : 1; // Default to page 1
+    $limit = 8; // Number of CVs per page
+
+    // Render CV cards with pagination
+    renderCVCardsWithPagination($currentPage, $limit);
     ?>
     </div>
 </div>

@@ -253,9 +253,9 @@ function validateTextField(value, fieldType) {
     }
 
     // Check for allowed characters (letters, spaces, hyphens, apostrophes, periods)
-    const regex = /^[a-zA-Z\s\-'.]+$/;
+    const regex = /^[a-zA-Z\s\-'.&]+$/;
     if (!regex.test(value.trim())) {
-        return `${capitalizedFieldType} can only contain letters, spaces, hyphens, apostrophes, and periods.`;
+        return `${capitalizedFieldType} can only contain letters, spaces, hyphens, apostrophes, periods, and ampersands`;
     }
 
     return null; // No errors
@@ -384,7 +384,8 @@ if (createCVForm) {
 
         () => validateDynamicCompanyName(document.querySelectorAll("input[name='company[]']"), 'company'),
         () => validateDynamicTextFields(document.querySelectorAll("input[name='position[]']"), 'position'),
-        () => validateDynamicWorkDate()
+        () => validateDynamicWorkDate(),
+
     ]
     );
 }

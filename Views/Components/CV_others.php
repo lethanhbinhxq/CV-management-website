@@ -34,6 +34,7 @@
             <div class="col-md-6">
                 <label for="refereeName" class="form-label">Referee name</label>
                 <input type="text" class="form-control" id="refereeName" name="refereeName[]" placeholder="Prof. ABC">
+                <div class="refereeName-error mb-2" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
 
             <div class="col-md-6">
