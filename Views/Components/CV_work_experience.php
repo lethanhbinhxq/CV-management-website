@@ -31,11 +31,13 @@
         <div class="mb-2">
             <label for="company" class="form-label">Company Name</label>
             <input type="text" class="form-control" name="company[]" placeholder="E.g. ABC Co. Ltd." required>
+            <div class="company-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
         </div>
 
         <div class="mb-2">
             <label for="position" class="form-label">Position</label>
             <input type="text" class="form-control" name="position[]" placeholder="E.g. Frontend Developer" required>
+            <div class="position-error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
         </div>
 
         <div class="row justify-content-center mb-3">
@@ -99,6 +101,7 @@
                 </select>
             </div>
         </div>
+        <div class="work-start-end-error mb-2" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
         
         <button type="button" class="btn btn-danger remove-work-btn d-none">Remove</button>
     </div>

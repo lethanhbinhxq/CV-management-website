@@ -130,6 +130,52 @@ function validateDynamicStreetAddress(addressFields) {
     return hasError;
 }
 
+function validateCompanyName(name) {
+    name = name.trim(); // Remove extra spaces
+
+    // Length validation
+    if (name.length < 2 || name.length > 255) {
+        return "Company name must be between 2 and 255 characters.";
+    }
+
+    // Allowed characters validation
+    const allowedCharactersRegex = /^[a-zA-Z0-9\s.,&\/-]+$/;
+    if (!allowedCharactersRegex.test(name)) {
+        return "Company name contains invalid characters.";
+    }
+
+    // Consecutive special characters validation
+    const consecutiveSpecialCharsRegex = /[.,&\/-]{2,}/;
+    if (consecutiveSpecialCharsRegex.test(name)) {
+        return "Company name cannot have consecutive special characters.";
+    }
+
+    // Start or end with special characters validation
+    const startEndSpecialCharsRegex = /^[.,&\/-]|[.,&\/-]$/;
+    if (startEndSpecialCharsRegex.test(name)) {
+        return "Company name cannot start or end with special characters.";
+    }
+
+    // At least one letter validation
+    const onlySpecialCharsRegex = /^[0-9.,&\/-]+$/;
+    if (onlySpecialCharsRegex.test(name)) {
+        return "Company name must contain letters.";
+    }
+
+    return ""; // Valid
+}
+
+function validateDynamicCompanyName(companyFields) {
+    let hasError = false;
+    companyFields.forEach((company, index) => {
+        const errorElement = document.querySelectorAll(".company-error")[index];
+        const error = validateCompanyName(company.value);
+        displayFieldError(errorElement, error);
+        if (error) hasError = true;
+    });
+    return hasError;
+}
+
 function validateStartEndDate(startMonth, startYear, endMonth, endYear) {
     // Convert to Date objects for easy comparison
     const startDate = new Date(startYear, startMonth - 1); // JavaScript months are 0-indexed
@@ -157,6 +203,34 @@ function validateDynamicEducationDate() {
         const endYear = endYears[index].value;
         
         const errorElement = document.querySelectorAll(".start-end-error")[index];
+        
+        // Validate dates
+        const error = validateStartEndDate(startMonth.value, startYear, endMonth, endYear);
+        
+        // Display error if validation fails
+        displayFieldError(errorElement, error);
+        
+        if (error) hasError = true;
+    });
+
+    return hasError;
+}
+
+function validateDynamicWorkDate() {
+    let hasError = false;
+    
+    // Get all start and end date fields
+    const startMonths = document.querySelectorAll("select[name='startWorkMonth[]']");
+    const startYears = document.querySelectorAll("select[name='startWorkYear[]']");
+    const endMonths = document.querySelectorAll("select[name='endWorkMonth[]']");
+    const endYears = document.querySelectorAll("select[name='endWorkYear[]']");
+    
+    startMonths.forEach((startMonth, index) => {
+        const startYear = startYears[index].value;
+        const endMonth = endMonths[index].value;
+        const endYear = endYears[index].value;
+        
+        const errorElement = document.querySelectorAll(".work-start-end-error")[index];
         
         // Validate dates
         const error = validateStartEndDate(startMonth.value, startYear, endMonth, endYear);
@@ -306,7 +380,11 @@ if (createCVForm) {
         () => validateDynamicTextFields(document.querySelectorAll("input[name='field[]']"), 'field'),
         () => validateDynamicTextFields(document.querySelectorAll("input[name='issuingOrganization[]']"), 'issuingOrganization'),
 
-        () => validateDynamicTextFields(document.querySelectorAll("input[name='skill[]']"), 'skill')
+        () => validateDynamicTextFields(document.querySelectorAll("input[name='skill[]']"), 'skill'),
+
+        () => validateDynamicCompanyName(document.querySelectorAll("input[name='company[]']"), 'company'),
+        () => validateDynamicTextFields(document.querySelectorAll("input[name='position[]']"), 'position'),
+        () => validateDynamicWorkDate()
     ]
     );
 }
