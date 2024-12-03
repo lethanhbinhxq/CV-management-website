@@ -43,7 +43,7 @@ function renderCVCardsWithPagination($currentPage, $limit) {
         // Previous button
         if ($currentPage > 1) {
             echo "<li class='page-item'>
-                    <a class='page-link custom-page-link' href='?paging=" . ($currentPage - 1) . "' aria-label='Previous'>
+                    <a class='page-link custom-page-link' href='index.php?page=viewCV&paging=" . ($currentPage - 1) . "' aria-label='Previous'>
                         <span aria-hidden='true'>&laquo;</span>
                     </a>
                   </li>";
@@ -58,14 +58,14 @@ function renderCVCardsWithPagination($currentPage, $limit) {
         // Page numbers
         for ($i = 1; $i <= $totalPages; $i++) {
             echo "<li class='page-item " . ($i == $currentPage ? 'active' : '') . "'>
-                    <a class='page-link custom-page-link' href='?paging=$i'>$i</a>
+                    <a class='page-link custom-page-link' href='index.php?page=viewCV&paging=$i'>$i</a>
                   </li>";
         }
 
         // Next button
         if ($currentPage < $totalPages) {
             echo "<li class='page-item'>
-                    <a class='page-link custom-page-link' href='?paging=" . ($currentPage + 1) . "' aria-label='Next'>
+                    <a class='page-link custom-page-link' href='index.php?page=viewCV&paging=" . ($currentPage + 1) . "' aria-label='Next'>
                         <span aria-hidden='true'>&raquo;</span>
                     </a>
                   </li>";

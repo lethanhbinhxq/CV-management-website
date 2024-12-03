@@ -188,7 +188,7 @@ $sql= "CREATE TABLE IF NOT EXISTS viewers (
     cv_id INT(11) NOT NULL,
     FOREIGN KEY (cv_id) REFERENCES cvs(id),
     viewer_id INT(11) NOT NULL,
-    FOREIGN KEY (cv_id) REFERENCES users(id)
+    FOREIGN KEY (viewer_id) REFERENCES users(id)
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table 'viewers' created successfully \n";
