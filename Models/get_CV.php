@@ -99,82 +99,89 @@ function getCvById($conn, $cvId) {
                 ];
             }
 
-            // Aggregate phone numbers
+            // Aggregate unique phone numbers
             if (!empty($row['phone_number']) && !in_array($row['phone_number'], $cv['phone_numbers'])) {
                 $cv['phone_numbers'][] = $row['phone_number'];
             }
 
-            // Aggregate addresses
-            if (!empty($row['province_id'])) {
-                $cv['addresses'][] = [
-                    'province_id' => $row['province_id'],
-                    'district_id' => $row['district_id'],
-                    'commune_id' => $row['commune_id'],
-                    'street_address' => $row['street_address']
-                ];
+            // Aggregate unique addresses
+            $address = [
+                'province_id' => $row['province_id'],
+                'district_id' => $row['district_id'],
+                'commune_id' => $row['commune_id'],
+                'street_address' => $row['street_address']
+            ];
+            if (!in_array($address, $cv['addresses'])) {
+                $cv['addresses'][] = $address;
             }
 
-            // Aggregate education
-            if (!empty($row['education_degree'])) {
-                $cv['education'][] = [
-                    'degree' => $row['education_degree'],
-                    'major' => $row['education_major'],
-                    'school' => $row['education_school'],
-                    'start_month' => $row['education_start_month'],
-                    'start_year' => $row['education_start_year'],
-                    'end_month' => $row['education_end_month'],
-                    'end_year' => $row['education_end_year']
-                ];
+            // Aggregate unique education entries
+            $education = [
+                'degree' => $row['education_degree'],
+                'major' => $row['education_major'],
+                'school' => $row['education_school'],
+                'start_month' => $row['education_start_month'],
+                'start_year' => $row['education_start_year'],
+                'end_month' => $row['education_end_month'],
+                'end_year' => $row['education_end_year']
+            ];
+            if (!in_array($education, $cv['education'])) {
+                $cv['education'][] = $education;
             }
 
-            // Aggregate certificates
-            if (!empty($row['certificate_title'])) {
-                $cv['certificates'][] = [
-                    'title' => $row['certificate_title'],
-                    'field' => $row['certificate_field'],
-                    'issue_year' => $row['certificate_issue_year'],
-                    'organization' => $row['certificate_organization']
-                ];
+            // Aggregate unique certificates
+            $certificate = [
+                'title' => $row['certificate_title'],
+                'field' => $row['certificate_field'],
+                'issue_year' => $row['certificate_issue_year'],
+                'organization' => $row['certificate_organization']
+            ];
+            if (!in_array($certificate, $cv['certificates'])) {
+                $cv['certificates'][] = $certificate;
             }
 
-            // Aggregate professional experience
-            if (!empty($row['experience_skill'])) {
-                $cv['experience'][] = [
-                    'skill' => $row['experience_skill'],
-                    'years' => $row['experience_years']
-                ];
+            // Aggregate unique professional experiences
+            $experience = [
+                'skill' => $row['experience_skill'],
+                'years' => $row['experience_years']
+            ];
+            if (!in_array($experience, $cv['experience'])) {
+                $cv['experience'][] = $experience;
             }
 
-            // Aggregate work history
-            if (!empty($row['work_company'])) {
-                $cv['work_history'][] = [
-                    'company' => $row['work_company'],
-                    'position' => $row['work_position'],
-                    'start_month' => $row['work_start_month'],
-                    'start_year' => $row['work_start_year'],
-                    'end_month' => $row['work_end_month'],
-                    'end_year' => $row['work_end_year']
-                ];
+            // Aggregate unique work history
+            $work = [
+                'company' => $row['work_company'],
+                'position' => $row['work_position'],
+                'start_month' => $row['work_start_month'],
+                'start_year' => $row['work_start_year'],
+                'end_month' => $row['work_end_month'],
+                'end_year' => $row['work_end_year']
+            ];
+            if (!in_array($work, $cv['work_history'])) {
+                $cv['work_history'][] = $work;
             }
 
-            // Aggregate other information
-            if (!empty($row['other_title'])) {
-                $cv['other_information'][] = [
-                    'title' => $row['other_title'],
-                    'description' => $row['other_description']
-                ];
+            // Aggregate unique other information
+            $info = [
+                'title' => $row['other_title'],
+                'description' => $row['other_description']
+            ];
+            if (!in_array($info, $cv['other_information'])) {
+                $cv['other_information'][] = $info;
             }
 
-            // Aggregate references
-            if (!empty($row['referee_name'])) {
-                $cv['references'][] = [
-                    'name' => $row['referee_name'],
-                    'relationship' => $row['referee_relationship'],
-                    'position' => $row['referee_position'],
-                    'workplace' => $row['referee_workplace'],
-                    'phone' => $row['referee_phone'],
-                    'email' => $row['referee_email']
-                ];
+            // Aggregate unique references
+            $reference = [
+                'name' => $row['referee_name'],
+                'relationship' => $row['referee_relationship'],
+                'position' => $row['referee_position'],
+                'workplace' => $row['referee_workplace'],
+                'phone' => $row['referee_phone'],
+                'email' => $row['referee_email']
+            ];
+            if (!in_array($reference, $cv['references'])) {
+                $cv['references'][] = $reference;
             }
         }
 
