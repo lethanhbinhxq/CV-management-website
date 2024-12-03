@@ -25,8 +25,8 @@
     <div class="col-md-6">
         <p>Gender</p>
         <div class="form-check d-inline-block me-3">
-            <input class="form-check-input" type="radio" name="gender" id="radioMale" checked>
-            <label class="form-check-label" for="radioMale" value="M">
+            <input class="form-check-input" type="radio" name="gender" id="radioMale" value="M" checked>
+            <label class="form-check-label" for="radioMale">
                 Male
             </label>
         </div>
