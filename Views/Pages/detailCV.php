@@ -1,6 +1,7 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Models/db_connect.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Models/get_CV.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Controllers/address_conversion.php';
 
 // Check for a valid CV ID
 if (!isset($_GET['id'])) {
@@ -49,12 +50,19 @@ function generateCvContent($cv)
                             <li><?php echo htmlspecialchars($phone); ?></li>
                         <?php endforeach; ?>
                     </ul>
+
                     <p><strong>Addresses:</strong></p>
                     <ul>
                         <?php foreach ($cv['addresses'] as $address): ?>
-                            <li><?php echo htmlspecialchars($address['street_address'] . ', ' . $address['commune_id'] . ', ' . $address['district_id'] . ', ' . $address['province_id']); ?></li>
+                            <li>
+                                <?php
+                                $rawAddress = $address['street_address'] . ', ' . $address['commune_id'] . ', ' . $address['district_id'] . ', ' . $address['province_id'];
+                                echo htmlspecialchars(convertAddress($rawAddress));
+                                ?>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
+
                     <p><strong>Objective:</strong> <?php echo htmlspecialchars($cv['objective']); ?></p>
                 </div>
             </div>
@@ -105,7 +113,8 @@ function generateCvContent($cv)
                 </div>
                 <ul>
                     <?php foreach ($cv['experience'] as $exp): ?>
-                        <li><b><?php echo htmlspecialchars($exp['skill']); ?></b> (<?php echo htmlspecialchars($exp['years']); ?> years)</li>
+                        <li><b><?php echo htmlspecialchars($exp['skill']); ?></b>
+                            (<?php echo htmlspecialchars($exp['years']); ?> years)</li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -134,7 +143,8 @@ function generateCvContent($cv)
                 </div>
                 <ul>
                     <?php foreach ($cv['other_information'] as $info): ?>
-                        <li><strong><?php echo htmlspecialchars($info['title']); ?>:</strong><br><?php echo htmlspecialchars($info['description']); ?></li>
+                        <li><strong><?php echo htmlspecialchars($info['title']); ?>:</strong><br><?php echo htmlspecialchars($info['description']); ?>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
