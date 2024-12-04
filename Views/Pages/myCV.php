@@ -8,49 +8,26 @@ if (session_status() === PHP_SESSION_NONE) {
 if (!isset($_SESSION['user_id'])) {
     // Nếu chưa đăng nhập, hiển thị thông báo và cung cấp các liên kết đăng nhập hoặc đăng ký
     echo '<div class="alert alert-warning text-center" role="alert">';
-    echo 'You are not logged in. Do you want to <a href="Views/Pages/login.php" class="btn btn-primary">Log In</a> / <a href="Views/Pages/signup.php" class="btn btn-success">Sign Up</a>?';
-    echo '</div>';
+    echo 'You are not logged in. Do you want to <a href="index.php?page=login" class="btn btn-primary">Log In</a> / <a href="index.php?page=signup" class="btn btn-success">Sign Up</a> ?';
     exit(); // Dừng lại và không cho phép truy cập vào phần còn lại của trang
 }
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My CVs</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container my-5">
-    <h1 class="text-center mb-4">My CVs</h1>
+<div class="container my-4 text-center">
+    <h1 class="text-uppercase fw-bold text-primary">My CV</h1>
+    <div class="row">
+    
+    <?php
+    // Include card rendering and pagination logic
+    include 'Views/Components/cardCV.php';
 
-    <?php if (empty($cvs)): ?>
-        <!-- Hiển thị thông báo nếu chưa có CV -->
-        <div class="alert alert-warning text-center" role="alert">
-            <p>There is no CV available yet.</p>
-            <p>
-                Do you want to create a CV? 
-                <a href="index.php?page=createCV" class="btn btn-primary">Create CV</a>
-            </p>
-            <p>
-                Do you want to view CV?
-                <a href="index.php?page=viewCV" class="btn btn-primary">View CV</a>
-            </p>
-        </div>
-    <?php else: ?>
-        <!-- Hiển thị danh sách CV nếu đã tạo -->
-        <div class="list-group">
-            <?php foreach ($cvs as $index => $cv): ?>
-                <a href="index.php?page=viewCV&id=<?php echo $index; ?>" class="list-group-item list-group-item-action">
-                    <h5 class="mb-1"><?php echo htmlspecialchars($cv['title']); ?></h5>
-                    <p class="mb-1"><?php echo htmlspecialchars($cv['description']); ?></p>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+    // Set the current page and number of CVs per page
+    $currentPage = isset($_GET['paging']) ? (int)$_GET['paging'] : 1; // Default to page 1
+    $limit = 8; // Number of CVs per page
+
+    // Render CV cards with pagination for the user's own CVs
+    renderCVCardsWithPagination($currentPage, $limit, true);
+    ?>
+    </div>
 </div>
-</body>
-</html>

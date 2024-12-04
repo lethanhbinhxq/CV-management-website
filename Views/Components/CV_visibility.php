@@ -11,7 +11,7 @@
         <option value="Public">Public</option>
         <option value="Private">Private</option>
         <option value="All Users">All Users</option>
-        <option value="Custom User">Custom</option>
+        <option value="Custom">Custom</option>
     </select>
 </div>
 

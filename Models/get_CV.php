@@ -10,6 +10,8 @@ function getCvById($conn, $cvId) {
                 cvs.email,
                 cvs.gender,
                 cvs.objective,
+                cvs.visibility,
+                cvs.user_id,
 
                 phone_numbers.phone_number,
 
@@ -88,6 +90,8 @@ function getCvById($conn, $cvId) {
                     'email' => $row['email'],
                     'gender' => $row['gender'],
                     'objective' => $row['objective'],
+                    'visibility' => $row['visibility'],
+                    'user_id' => $row['user_id'],
                     'phone_numbers' => [],
                     'addresses' => [],
                     'education' => [],

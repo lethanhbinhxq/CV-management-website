@@ -43,8 +43,8 @@
           </li>
 
           <li class="mb-3">
-            <i class="bi bi-cloud-upload me-2 text-primary"></i>
-            Upload CVs in PDF files.
+            <i class="bi bi-cloud-arrow-down-fill me-2 text-primary"></i>
+            Download CVs in PDF files.
           </li>
 
           <li class="mb-3">

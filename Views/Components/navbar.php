@@ -13,7 +13,7 @@
                   <li><a class="dropdown-item" href="index.php?page=createCV">Create CV</a></li>
                   <li><a class="dropdown-item" href="index.php?page=viewCV">View CV</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">My CV</a></li>
+                  <li><a class="dropdown-item" href="index.php?page=myCV">My CV</a></li>
                 </ul>
               </li>
 

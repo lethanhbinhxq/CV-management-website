@@ -3,9 +3,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Models/db_connect.ph
 include $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Models/get_CV.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Controllers/address_conversion.php';
 
+
+
 // Check for a valid CV ID
 if (!isset($_GET['id'])) {
-    echo "<div class='alert alert-danger'>No CV ID provided.</div>";
+    echo "
+    <div class='alert alert-danger'>
+        No CV ID provided.
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>";
     exit;
 }
 
@@ -15,13 +21,46 @@ try {
     $cv = getCvById($conn, $cvId);
 
     if (!$cv) {
-        echo "<div class='alert alert-danger'>CV not found.</div>";
+        echo "
+        <div class='alert alert-danger'>
+            CV not found.
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>
+        ";
         exit;
     }
 } catch (Exception $e) {
     echo "<div class='alert alert-danger'>Error: " . $e->getMessage() . "</div>";
     exit;
 }
+
+$visibilityAlert = "
+<div class='alert alert-warning text-center' role='alert'>
+    You do not have access to view this CV! <a href='index.php?page=viewCV' class='btn btn-primary'>Back to Gallery</a>
+</div>
+";
+
+if (!isset($_SESSION['user_id']) && $cv['visibility'] != 'Public') {
+    echo $visibilityAlert;
+    exit();
+}
+else if (isset($_SESSION['user_id'])) {
+    if ($cv['visibility'] == 'Custom') {
+        $query = "SELECT 1 FROM viewer WHERE cv_id = ? AND viewer_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ii", $_SESSION['user_id'], $cvId);
+        $stmt->execute();
+
+        if ($stmt->num_rows === 0) {
+            echo $visibilityAlert;
+            exit();
+        }
+    }
+    else if ($cv['visibility'] == 'Private' && $cv['user_id'] != $_SESSION['user_id']) {
+        echo $visibilityAlert;
+        exit();
+    }
+} 
 
 // Function to generate the HTML content for the CV without the header and the buttons
 function generateCvContent($cv)
