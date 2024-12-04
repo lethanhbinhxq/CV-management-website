@@ -184,6 +184,11 @@ function generateCvButtons($cvId, $fullName)
                 <input type='hidden' name='fullName' value='" . htmlspecialchars($fullName) . "'>
                 <button type='submit' class='btn btn-success'>Export to PDF</button>
             </form>
+            <button class='btn btn-primary' onclick='generateCvUrl($cvId)'>Generate Link</button>
+        </div>
+        <div id='shareable-url-container' class='mt-3 d-none'>
+            <input id='shareable-url' type='text' class='form-control' readonly>
+            <button onclick='copyToClipboard()' class='btn btn-outline-primary mt-2'>Copy to Clipboard</button>
         </div>
     </div>
     ";
@@ -208,3 +213,16 @@ echo $htmlHeader;
 echo $htmlContent;
 echo $htmlButtons;
 ?>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="clipboardToast" class="toast align-items-center bg-primary text-white" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                URL copied to clipboard!
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script src="/CV-management-website/Controllers/Scripts/copy_url.js"></script>
