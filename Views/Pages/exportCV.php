@@ -1,39 +1,31 @@
 <?php
-ob_end_clean(); // Start output buffering
+require_once $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Library/vendor/autoload.php';
+session_start();  // Start the session to access session variables
+ob_end_clean();
 
-require $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Library/fpdf/fpdf.php';
+$cvId = $_POST['cvId'];
+$fullName = $_POST['fullName'];
 
-// Check if CV data is passed via POST
-if (isset($_POST['full_name'], $_POST['job_title'], $_POST['email'])) {
-    // Get CV data from POST
-    $cv = [
-        'full_name' => $_POST['full_name'],
-        'job_title' => $_POST['job_title'],
-        'email' => $_POST['email']
-    ];
-} else {
-    // Fall back to getting CV from database if not passed via POST
-    require $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Models/db_connect.php';
-    require $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Models/get_CV.php';
+// Use the $cvId and $fullName to set the filename when exporting to PDF
+$fileName = "CV_{$cvId}_{$fullName}.pdf";
 
-    $cvId = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the ID from POST
-
-    $cv = getCvById($conn, $cvId);
-
-    if (!$cv) {
-        die('CV not found.');
-    }
+// Check if HTML content is stored in session
+if (!isset($_SESSION['cv_html_content'])) {
+    echo "No CV details found to export.";
+    exit;
 }
 
-// Generate PDF
-$pdf = new FPDF();
-$pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Cell(0, 10, 'CV Details', 0, 1, 'C');
-$pdf->Ln(10);
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, 'Full Name: ' . $cv['full_name'], 0, 1);
-$pdf->Cell(0, 10, 'Job Title: ' . $cv['job_title'], 0, 1);
-$pdf->Cell(0, 10, 'Email: ' . $cv['email'], 0, 1);
-$pdf->Output('D', $cv['full_name'] . '_CV.pdf');
-exit;
+// Get the HTML content from the session
+$htmlContent = $_SESSION['cv_html_content'];
+
+// Initialize mPDF
+$mpdf = new \Mpdf\Mpdf();
+
+// Write the HTML content to the PDF
+$mpdf->WriteHTML($htmlContent);
+
+// Output the PDF to the browser (force download)
+$mpdf->Output($fileName, 'D');  // 'D' for download
+
+// Optionally, you can unset the session variable after export
+unset($_SESSION['cv_html_content']);

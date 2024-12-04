@@ -110,6 +110,11 @@ body {
     border: 5px dashed #4f81ff;
     margin: 0 auto;
 }
+.long-divider {
+    width: 100%;
+    border: 5px dashed #4f81ff;
+    margin: 0 auto;
+}
 
 .tooltip-inner {
     text-align: left !important;
