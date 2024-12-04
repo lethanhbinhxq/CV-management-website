@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id']) && $cv['visibility'] != 'Public') {
 }
 else if (isset($_SESSION['user_id'])) {
     if ($cv['visibility'] == 'Custom') {
-        $query = "SELECT 1 FROM viewer WHERE cv_id = ? AND viewer_id = ?";
+        $query = "SELECT 1 FROM viewers WHERE cv_id = ? AND viewer_id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ii", $_SESSION['user_id'], $cvId);
         $stmt->execute();
