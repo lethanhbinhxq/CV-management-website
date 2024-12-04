@@ -1,42 +1,28 @@
 <?php
-// Đường dẫn tuyệt đối đến thư mục gốc của dự án
+// Absolute path to the project's root directory
 $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Views/Pages/';
+$navbar = 'Views/Components/navbar.php';
 
-// Kiểm tra tham số 'page'
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-
-    // Điều hướng dựa trên giá trị của 'page'
-    switch ($page) {
-        case 'home':
-            include $baseDir . 'home.php';
-            break;
-        case 'login':
-            include $baseDir . 'login.php';
-            break;
-        case 'signup':
-            include $baseDir . 'signup.php';
-            break;
-        case 'createCV':
-            include 'Views/Pages/createCV.php';
-            break;
-        case 'viewCV':
-            include 'Views/Pages/viewCV.php';
-            break;
-        case 'myCV':
-            include 'Views/Pages/myCV.php';
-            break;
-        case 'contact':
-            include 'Views/Pages/contact.php';
-            break;
-
-        default:
-            // Nếu không tìm thấy trang, hiển thị lỗi
-            echo "<h2>Page not found</h2>";
-            break;
+// Function to include a page safely
+function includePage($page, $baseDir, $default = 'notFound.php') {
+    $allowedPages = [
+        'home', 'login', 'signup', 'createCV', 'viewCV',
+        'detailCV', 'exportCV', 'myCV', 'contact'
+    ];
+    if (in_array($page, $allowedPages)) {
+        include $baseDir . $page . '.php';
+    } else {
+        include $baseDir . $default;
     }
-} else {
-    // Mặc định hiển thị trang chủ
-    include $baseDir . 'home.php';
 }
-?>
+
+// Check the 'page' parameter
+$page = $_GET['page'] ?? 'home'; // Default to 'home' if 'page' is not set
+
+// Include the navbar unless it's the exportCV page
+if ($page !== 'exportCV') {
+    include $navbar;
+}
+
+// Include the requested page
+includePage($page, $baseDir);

@@ -52,7 +52,7 @@ function managePhoneNumbers(container, action, rowToRemove = null) {
         const phoneInput = document.createElement('input');
         phoneInput.type = 'tel';
         phoneInput.name = 'phoneNumbers[]';
-        phoneInput.classList.add('form-control');
+        phoneInput.classList.add('form-control', 'phoneNumber');
         phoneInput.placeholder = 'Enter your phone number';
         phoneInput.required = true;
 
@@ -62,12 +62,26 @@ function managePhoneNumbers(container, action, rowToRemove = null) {
         removeButton.classList.add('btn', 'btn-danger', 'remove-phone-btn');
         removeButton.textContent = 'Remove';
 
-        // Append input and button to the group
+        // Create error message container
+        const errorMessageContainer = document.createElement('div');
+        errorMessageContainer.classList.add('phone_number_error');
+        errorMessageContainer.style.color = 'red';
+        errorMessageContainer.style.fontSize = '0.9rem';
+        errorMessageContainer.style.marginTop = '10px';
+
+        // Append input, button, and error message container to the group
         newInputGroup.appendChild(phoneInput);
         newInputGroup.appendChild(removeButton);
 
-        // Add the new input group to the container
+        // Add the error message container after the phone number input
         container.appendChild(newInputGroup);
+        container.appendChild(errorMessageContainer);
+
+        // Add event listener to validate phone number
+        phoneInput.addEventListener('input', function() {
+            validatePhoneNumber(phoneInput, errorMessageContainer);
+        });
+
     } else if (action === 'remove' && rowToRemove) {
         // Remove the specified row
         container.removeChild(rowToRemove);
@@ -76,6 +90,7 @@ function managePhoneNumbers(container, action, rowToRemove = null) {
     // Update the visibility of the remove buttons
     updateRemovePhoneButtons(container);
 }
+
 
 /**
  * Update the visibility of remove buttons based on the number of rows.
@@ -135,6 +150,10 @@ function manageEducationEntries(container, action, entryToRemove = null) {
                 } else {
                     input.value = '';
                 }
+            });
+
+            newEntry.querySelectorAll('.degree-error, .major-error, .school-error, .start-end-error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear any previous error messages
             });
 
             // Remove 'd-none' class from remove button
@@ -228,6 +247,7 @@ function manageAddress(container, action, rowToRemove = null) {
             <div class="mb-2">
                 <label for="streetAddress" class="text-main-pink">Street address</label>
                 <input type="text" class="form-control" name="streetAddress[]" placeholder="Enter your street address" required>
+                <div class="street_address_error" style="color: red; font-size: 0.9rem; margin-top: 10px;"></div>
             </div>
 
             <button type="button" class="btn btn-danger remove-address-btn">Remove</button>
@@ -294,6 +314,10 @@ function manageCertificateEntries(container, action, entryToRemove = null) {
                 } else {
                     input.value = '';
                 }
+            });
+
+            newEntry.querySelectorAll('.certificateTitle-error, .field-error, .issuingOrganization-error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear any previous error messages
             });
 
             // Remove 'd-none' class from remove button
@@ -364,6 +388,10 @@ function manageSkillEntries(container, action, entryToRemove = null) {
                 }
             });
 
+            newEntry.querySelectorAll('.skill-error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear any previous error messages
+            });
+
             // Remove 'd-none' class from remove button
             const removeButton = newEntry.querySelector('.remove-skill-btn');
             if (removeButton) {
@@ -430,6 +458,10 @@ function manageWorkEntries(container, action, entryToRemove = null) {
                 } else {
                     input.value = '';
                 }
+            });
+
+            newEntry.querySelectorAll('.company-error, .position-error, .work-start-end-error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear any previous error messages
             });
 
             // Remove 'd-none' class from remove button

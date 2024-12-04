@@ -6,12 +6,12 @@
            <strong>All Users</strong>: For all logged-in users.<br>
            <strong>Custom</strong>: For specified users only.">
     </i>
-    <select class="form-select" id="userRole" name="userRole" required>
+    <select class="form-select" id="visibility" name="visibility" required>
         <option value="" disabled selected>Select visibility</option>
         <option value="Public">Public</option>
         <option value="Private">Private</option>
         <option value="All Users">All Users</option>
-        <option value="Custom User">Custom</option>
+        <option value="Custom">Custom</option>
     </select>
 </div>
 
@@ -24,11 +24,10 @@
         </button>
 
         <ul class="dropdown-menu p-3 w-auto" id="userList">
-            <!-- Replace these with PHP code to fetch dynamically -->
-            <li><label><input type="checkbox" value="User1" name="customUsers[]"> User1</label></li>
+            <!-- <li><label><input type="checkbox" value="User1" name="customUsers[]"> User1</label></li>
             <li><label><input type="checkbox" value="User2" name="customUsers[]"> User2</label></li>
             <li><label><input type="checkbox" value="User3" name="customUsers[]"> User3</label></li>
-            <li><label><input type="checkbox" value="User4" name="customUsers[]"> User4</label></li>
+            <li><label><input type="checkbox" value="User4" name="customUsers[]"> User4</label></li> -->
         </ul>
     </div>
 </div>

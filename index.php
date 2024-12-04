@@ -21,12 +21,10 @@
 
 <body>
     <?php include 'Views/Components/header.php'; ?>
-    <!-- Redirect processing -->
 
-    <?php include 'Views/Components/navbar.php'; ?>
-    
+    <!-- Redirect processing -->
     <?php include 'Controllers/redirect.php'; ?>
-    
+
     <?php include 'Views/Components/footer.php'; ?>
 </body>
 
