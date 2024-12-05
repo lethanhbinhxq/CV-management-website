@@ -34,9 +34,9 @@ function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false, $key
             }
         }
 
-        // Add search functionality
+        // Add search functionality with case-insensitive matching
         if (!empty($keyword)) {
-            $baseQuery .= " AND (full_name LIKE ? OR job_title LIKE ?)";
+            $baseQuery .= " AND (LOWER(full_name) LIKE LOWER(?) OR LOWER(job_title) LIKE LOWER(?))";
         }
 
         // Add pagination
@@ -51,18 +51,18 @@ function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false, $key
             $countQuery = "SELECT COUNT(*) AS total FROM cvs WHERE user_id = ?";
         }
         if (!empty($keyword)) {
-            $countQuery .= " AND (full_name LIKE ? OR job_title LIKE ?)";
+            $countQuery .= " AND (LOWER(full_name) LIKE LOWER(?) OR LOWER(job_title) LIKE LOWER(?))";
         }
 
         // Execute the count query
         $countResult = $conn->prepare($countQuery);
         if ($userId && !empty($keyword)) {
-            $searchTerm = '%' . $keyword . '%';
+            $searchTerm = '%' . strtolower($keyword) . '%';
             $countResult->bind_param("iss", $userId, $searchTerm, $searchTerm);
         } elseif ($userId) {
             $countResult->bind_param("i", $userId);
         } elseif (!empty($keyword)) {
-            $searchTerm = '%' . $keyword . '%';
+            $searchTerm = '%' . strtolower($keyword) . '%';
             $countResult->bind_param("ss", $searchTerm, $searchTerm);
         }
         $countResult->execute();
@@ -73,12 +73,12 @@ function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false, $key
         // Execute the main query
         $stmt = $conn->prepare($baseQuery);
         if ($userId && !empty($keyword)) {
-            $searchTerm = '%' . $keyword . '%';
+            $searchTerm = '%' . strtolower($keyword) . '%';
             $stmt->bind_param("issii", $userId, $searchTerm, $searchTerm, $limit, $offset);
         } elseif ($userId) {
             $stmt->bind_param("iii", $userId, $limit, $offset);
         } elseif (!empty($keyword)) {
-            $searchTerm = '%' . $keyword . '%';
+            $searchTerm = '%' . strtolower($keyword) . '%';
             $stmt->bind_param("ssii", $searchTerm, $searchTerm, $limit, $offset);
         } else {
             $stmt->bind_param("ii", $limit, $offset);
@@ -98,42 +98,43 @@ function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false, $key
         // Previous button
         if ($currentPage > 1) {
             echo "<li class='page-item'>
-                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=" . ($currentPage - 1) . "&keyword=" . urlencode($keyword) . "' aria-label='Previous'>
-                        <span aria-hidden='true'>&laquo;</span>
-                    </a>
-                  </li>";
+            <a class='page-link custom-page-link' href='index.php?page=" . ($keyword ? "searchCV" : "viewCV") . "&paging=" . ($currentPage - 1) . "&keyword=" . urlencode($keyword) . "' aria-label='Previous'>
+                <span aria-hidden='true'>&laquo;</span>
+            </a>
+          </li>";
         } else {
             echo "<li class='page-item disabled'>
-                    <span class='page-link custom-page-link' aria-label='Previous'>
-                        <span aria-hidden='true'>&laquo;</span>
-                    </span>
-                  </li>";
+            <span class='page-link custom-page-link' aria-label='Previous'>
+                <span aria-hidden='true'>&laquo;</span>
+            </span>
+          </li>";
         }
 
         // Page numbers
         for ($i = 1; $i <= $totalPages; $i++) {
             echo "<li class='page-item " . ($i == $currentPage ? 'active' : '') . "'>
-                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=$i&keyword=" . urlencode($keyword) . "'>$i</a>
-                  </li>";
+            <a class='page-link custom-page-link' href='index.php?page=" . ($keyword ? "searchCV" : "viewCV") . "&paging=$i&keyword=" . urlencode($keyword) . "'>$i</a>
+          </li>";
         }
 
         // Next button
         if ($currentPage < $totalPages) {
             echo "<li class='page-item'>
-                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=" . ($currentPage + 1) . "&keyword=" . urlencode($keyword) . "' aria-label='Next'>
-                        <span aria-hidden='true'>&raquo;</span>
-                    </a>
-                  </li>";
+            <a class='page-link custom-page-link' href='index.php?page=" . ($keyword ? "searchCV" : "viewCV") . "&paging=" . ($currentPage + 1) . "&keyword=" . urlencode($keyword) . "' aria-label='Next'>
+                <span aria-hidden='true'>&raquo;</span>
+            </a>
+          </li>";
         } else {
             echo "<li class='page-item disabled'>
-                    <span class='page-link custom-page-link' aria-label='Next'>
-                        <span aria-hidden='true'>&raquo;</span>
-                    </span>
-                  </li>";
+            <span class='page-link custom-page-link' aria-label='Next'>
+                <span aria-hidden='true'>&raquo;</span>
+            </span>
+          </li>";
         }
 
         echo "</ul>";
         echo "</nav>";
+
     } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
     }

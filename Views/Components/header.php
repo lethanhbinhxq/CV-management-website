@@ -15,8 +15,14 @@ session_start();
     <div>
         <form class="d-flex ms-auto" role="search" action="index.php" method="get">
             <input type="hidden" name="page" value="searchCV">
-            <input class="form-control me-2 custom-search" name="keyword" type="search" placeholder="Search"
-                aria-label="Search" id="searchByText">
+
+            <div class="me-2">
+                <input class="form-control me-4 custom-search" name="keyword" type="search" placeholder="Search"
+                    aria-label="Search" id="searchByText">
+
+                <div id="autocomplete-list" class="dropdown-menu dropdown-menu-blue" style="display: none;"></div>
+            </div>
+
             <button class="btn btn-outline-secondary" type="submit" aria-label="Search">
                 <i class="bi bi-search"></i>
             </button>
@@ -58,3 +64,5 @@ session_start();
     </div>
 
 </div>
+
+<script src="/CV-management-website/Controllers/Scripts/search_AJAX.js"></script>
