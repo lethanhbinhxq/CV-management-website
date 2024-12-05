@@ -15,7 +15,7 @@ function renderCvCard($name, $jobTitle, $cvId)
     </div>";
 }
 
-function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false)
+function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false, $keyword = null)
 {
     include $_SERVER['DOCUMENT_ROOT'] . '/CV-management-website/Models/db_connect.php';
     $offset = ($currentPage - 1) * $limit;
@@ -24,43 +24,62 @@ function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false)
     $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
     try {
-        // Build query based on whether it's myCV or viewCV
+        // Build the base query
         if ($isMyCV && $userId) {
-            $baseQuery = "SELECT id, full_name, job_title FROM cvs WHERE user_id = ?"; // Fetch the user's own CVs
+            $baseQuery = "SELECT id, full_name, job_title FROM cvs WHERE user_id = ?";
         } else {
-            // For public and all users visibility
             $baseQuery = "SELECT id, full_name, job_title FROM cvs WHERE visibility = 'Public'";
             if ($userId) {
                 $baseQuery .= " OR visibility = 'All Users' OR id IN (SELECT cv_id FROM viewers WHERE viewer_id = ?)";
             }
         }
 
-        // Apply limit and offset for pagination
+        // Add search functionality
+        if (!empty($keyword)) {
+            $baseQuery .= " AND (full_name LIKE ? OR job_title LIKE ?)";
+        }
+
+        // Add pagination
         $baseQuery .= " LIMIT ? OFFSET ?";
 
-        // Prepare the count query to calculate the total number of CVs
+        // Prepare the count query
         $countQuery = "SELECT COUNT(*) AS total FROM cvs WHERE visibility = 'Public'";
         if ($userId) {
             $countQuery .= " OR visibility = 'All Users' OR id IN (SELECT cv_id FROM viewers WHERE viewer_id = ?)";
         }
         if ($isMyCV && $userId) {
-            $countQuery = "SELECT COUNT(*) AS total FROM cvs WHERE user_id = ?"; // Count only the logged-in user's CVs
+            $countQuery = "SELECT COUNT(*) AS total FROM cvs WHERE user_id = ?";
+        }
+        if (!empty($keyword)) {
+            $countQuery .= " AND (full_name LIKE ? OR job_title LIKE ?)";
         }
 
         // Execute the count query
         $countResult = $conn->prepare($countQuery);
-        if ($userId) {
+        if ($userId && !empty($keyword)) {
+            $searchTerm = '%' . $keyword . '%';
+            $countResult->bind_param("iss", $userId, $searchTerm, $searchTerm);
+        } elseif ($userId) {
             $countResult->bind_param("i", $userId);
+        } elseif (!empty($keyword)) {
+            $searchTerm = '%' . $keyword . '%';
+            $countResult->bind_param("ss", $searchTerm, $searchTerm);
         }
         $countResult->execute();
         $countRow = $countResult->get_result()->fetch_assoc();
         $totalCvs = $countRow['total'];
         $totalPages = ceil($totalCvs / $limit);
 
-        // Execute the main query for fetching CV data
+        // Execute the main query
         $stmt = $conn->prepare($baseQuery);
-        if ($userId) {
+        if ($userId && !empty($keyword)) {
+            $searchTerm = '%' . $keyword . '%';
+            $stmt->bind_param("issii", $userId, $searchTerm, $searchTerm, $limit, $offset);
+        } elseif ($userId) {
             $stmt->bind_param("iii", $userId, $limit, $offset);
+        } elseif (!empty($keyword)) {
+            $searchTerm = '%' . $keyword . '%';
+            $stmt->bind_param("ssii", $searchTerm, $searchTerm, $limit, $offset);
         } else {
             $stmt->bind_param("ii", $limit, $offset);
         }
@@ -79,7 +98,7 @@ function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false)
         // Previous button
         if ($currentPage > 1) {
             echo "<li class='page-item'>
-                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=" . ($currentPage - 1) . "' aria-label='Previous'>
+                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=" . ($currentPage - 1) . "&keyword=" . urlencode($keyword) . "' aria-label='Previous'>
                         <span aria-hidden='true'>&laquo;</span>
                     </a>
                   </li>";
@@ -94,14 +113,14 @@ function renderCVCardsWithPagination($currentPage, $limit, $isMyCV = false)
         // Page numbers
         for ($i = 1; $i <= $totalPages; $i++) {
             echo "<li class='page-item " . ($i == $currentPage ? 'active' : '') . "'>
-                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=$i'>$i</a>
+                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=$i&keyword=" . urlencode($keyword) . "'>$i</a>
                   </li>";
         }
 
         // Next button
         if ($currentPage < $totalPages) {
             echo "<li class='page-item'>
-                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=" . ($currentPage + 1) . "' aria-label='Next'>
+                    <a class='page-link custom-page-link' href='index.php?page=" . ($isMyCV ? "myCV" : "viewCV") . "&paging=" . ($currentPage + 1) . "&keyword=" . urlencode($keyword) . "' aria-label='Next'>
                         <span aria-hidden='true'>&raquo;</span>
                     </a>
                   </li>";

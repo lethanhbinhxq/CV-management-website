@@ -7,7 +7,7 @@ $navbar = 'Views/Components/navbar.php';
 function includePage($page, $baseDir, $default = 'notFound.php') {
     $allowedPages = [
         'home', 'login', 'signup', 'createCV', 'viewCV',
-        'detailCV', 'exportCV', 'myCV', 'contact'
+        'detailCV', 'exportCV', 'myCV', 'searchCV', 'contact'
     ];
     if (in_array($page, $allowedPages)) {
         include $baseDir . $page . '.php';

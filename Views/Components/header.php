@@ -14,6 +14,7 @@ session_start();
     <!-- Search bar -->
     <div>
         <form class="d-flex ms-auto" role="search" action="index.php" method="get">
+            <input type="hidden" name="page" value="searchCV">
             <input class="form-control me-2 custom-search" name="keyword" type="search" placeholder="Search"
                 aria-label="Search" id="searchByText">
             <button class="btn btn-outline-secondary" type="submit" aria-label="Search">
