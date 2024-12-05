@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Commit transaction
         $conn->commit();
-        header("Location: /CV-management-website/?page=viewCV");
+        header("Location: /CV-management-website/$cv_id");
         exit();
     } catch (Exception $e) {
         // Rollback transaction if something goes wrong

@@ -524,7 +524,7 @@ function manageOtherEntries(container, action, entryToRemove = null) {
             const newEntry = firstEntry.cloneNode(true);
 
             // Clear input values
-            newEntry.querySelectorAll('input, select').forEach(input => {
+            newEntry.querySelectorAll('input, select,textarea').forEach(input => {
                 if (input.tagName === 'SELECT') {
                     input.selectedIndex = 0;
                 } else {
