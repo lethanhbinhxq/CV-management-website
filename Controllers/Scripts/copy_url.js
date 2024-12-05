@@ -18,7 +18,7 @@ function copyToClipboard() {
 
 // Optional: Generate the shareable CV URL dynamically
 function generateCvUrl(cvId) {
-    const shareableUrl = `${window.location.origin}/CV-management-website/index.php?page=detailCV&id=${cvId}`;
+    const shareableUrl = `${window.location.origin}/CV-management-website/${cvId}`;
     const urlInput = document.getElementById('shareable-url');
     urlInput.value = shareableUrl;
     urlInput.parentElement.classList.remove('d-none');

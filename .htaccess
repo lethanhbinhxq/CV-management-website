@@ -1,0 +1,8 @@
+# Enable the rewrite engine
+RewriteEngine On
+
+# Base directory (update this if your site is in a subdirectory)
+RewriteBase /CV-management-website/
+
+# Redirect requests like localhost/CV-management-website/$cvId to index.php
+RewriteRule ^(\d+)$ index.php?page=detailCV&id=$1 [L,QSA]
