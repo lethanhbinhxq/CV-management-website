@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         ///////// Viewer
-        if ($visibility == 'Custom User') {
+        if ($visibility == 'Custom') {
             $viewers = $_POST['customUsers'];
             $stmt = $conn->prepare("INSERT INTO viewers (cv_id, viewer_id) VALUES (?, ?)");
             for ($i = 0; $i < count($viewers); $i++) {

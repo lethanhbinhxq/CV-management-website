@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event listener for user role selection
     visibilitySelect.addEventListener('change', function () {
-        if (this.value === 'Custom User') {
+        if (this.value === 'Custom') {
             customUsersField.style.display = 'block';
             loadUsers();
         } else {
